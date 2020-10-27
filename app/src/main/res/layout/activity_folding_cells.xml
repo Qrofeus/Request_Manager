@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".FoldingCells"
+    android:orientation="vertical">
+
+    <com.ramotion.foldingcell.FoldingCell
+        android:layout_margin="5dp"
+        android:id="@+id/folding_cell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/cell_content_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="@android:color/holo_green_dark"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/foldingID"
+                android:text="Request ID"
+                android:textSize="25sp"
+                android:gravity="start"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:id="@+id/foldingSub"
+                android:text="Request Subject"
+                android:textSize="25sp"
+                android:gravity="start"
+                android:layout_height="50dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/foldingUsername"
+                android:text="Username"
+                android:textSize="25sp"
+                android:gravity="start" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="100dp"
+                android:id="@+id/foldingDetails"
+                android:text="Request Details"
+                android:textSize="25sp"
+                android:gravity="start" />
+
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:id="@+id/foldingManage"
+                android:text="Manage Request"
+                android:textSize="25sp"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginVertical="5dp"
+                android:gravity="end" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cell_title_view"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@android:color/holo_blue_dark">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/requestID"
+                android:textSize="25sp"
+                android:gravity="center"
+                android:text="Request ID"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:id="@+id/requestSubject"
+                android:textSize="25sp"
+                android:gravity="center"
+                android:text="Request Subject" />
+
+        </LinearLayout>
+    </com.ramotion.foldingcell.FoldingCell>
+
+</LinearLayout>
