@@ -29,8 +29,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(MainActivity.this, FoldingCells.class);
-                startActivity(intent);
+                startActivity(new Intent(MainActivity.this, Dashboard.class));
                 finish();
             }
         }, 5000);
