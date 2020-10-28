@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">Request Manager</string>
+    <string name="make_a_request">Make a Request</string>
+    <string name="request_queue">Request Queue</string>
 </resources>
