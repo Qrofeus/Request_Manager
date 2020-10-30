@@ -117,7 +117,7 @@
         android:layout_marginBottom="15dp"
         android:background="#00FFFFFF"
         android:onClick="adminDashboard"
-        android:text="Admin"
+        android:text="@string/admin_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 </androidx.constraintlayout.widget.ConstraintLayout>
