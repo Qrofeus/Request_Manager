@@ -14,7 +14,6 @@
         <activity android:name=".RegisterRequest" />
         <activity android:name=".Dashboard" />
         <activity android:name=".RequestList" />
-        <activity android:name=".FoldingCells" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
