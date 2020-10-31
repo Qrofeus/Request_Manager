@@ -1,7 +1,5 @@
 package com.qrofeus.requestmanager;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -9,8 +7,9 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 public class RegisterRequest extends AppCompatActivity {
 
@@ -18,18 +17,22 @@ public class RegisterRequest extends AppCompatActivity {
     private String subject_text;
     private String details_text;
     private String request_priority;
+    private String email_address;
+    private String phone_number;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_request);
 
-        final EditText username = (EditText) findViewById(R.id.username);
-        //final TextView req_id = (TextView) findViewById(R.id.requestID);
-        final EditText subject = (EditText) findViewById(R.id.request_subject);
-        final EditText details = (EditText) findViewById(R.id.request_details);
-        final Spinner priority = (Spinner) findViewById(R.id.priority_dropdown);
-        final Button register = (Button) findViewById(R.id.button_register);
+        final EditText username = findViewById(R.id.username);
+        final EditText mail_id = findViewById(R.id.email_address);
+        final EditText phone = findViewById(R.id.contact_phone);
+        //final TextView req_id = findViewById(R.id.requestID);
+        final EditText subject = findViewById(R.id.request_subject);
+        final EditText details = findViewById(R.id.request_details);
+        final Spinner priority = findViewById(R.id.priority_dropdown);
+        final Button register = findViewById(R.id.button_register);
 
         /*String request_id = generateID();
         req_id.setText(request_id);*/
@@ -57,22 +60,24 @@ public class RegisterRequest extends AppCompatActivity {
         register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(RegisterRequest.this, "Request Registered", Toast.LENGTH_SHORT).show();
                 username_text = username.getText().toString();
+                email_address = mail_id.getText().toString();
+                phone_number = phone.getText().toString();
                 subject_text = subject.getText().toString();
                 details_text = details.getText().toString();
+                Toast.makeText(RegisterRequest.this, "Request Registered", Toast.LENGTH_SHORT).show();
             }
         });
 
         //storeData();
     }
 
-    private String generateID(){
+    private String generateID() {
         //ToDo: Generate Request ID
-        return "Request ID : "+"========";
+        return "Request ID : " + "========";
     }
 
-    private void storeData(){
+    private void storeData() {
         //ToDo: Store all request parameters in database
     }
 }
