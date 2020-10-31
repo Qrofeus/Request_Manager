@@ -5,7 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.TextView;
 
@@ -21,7 +20,7 @@ public class Dashboard extends AppCompatActivity {
     }
 
     public void requestList(View view){
-        startActivity(new Intent(this, RequestList.class));
+        startActivity(new Intent(this, RequestList.class).putExtra("User", "Customer"));
     }
 
     public void makeRequest(View view){

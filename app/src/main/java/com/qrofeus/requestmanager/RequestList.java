@@ -5,29 +5,50 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
 public class RequestList extends AppCompatActivity {
-
-    private RecyclerView recyclerView;
-    private AdapterClass adapterClass;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_list);
 
-        //Recycler View Set Up
-        recyclerView = findViewById(R.id.request_recycler);
+        Bundle bundle = getIntent().getExtras();
+
+        final Spinner prioritySpin = findViewById(R.id.priority_spin);
+        final RecyclerView recyclerView = findViewById(R.id.request_recycler);
+        final String user = bundle.getString("User");
+        final AdapterClass adapterClass = new AdapterClass(this, user);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setFocusable(false);
 
-        adapterClass = new AdapterClass(this);
         recyclerView.setAdapter(adapterClass);
 
+        ArrayAdapter<CharSequence> priority_adapter = ArrayAdapter.createFromResource(this, R.array.priorities, android.R.layout.simple_spinner_item);
+        priority_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        prioritySpin.setAdapter(priority_adapter);
+
+        prioritySpin.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(RequestList.this, "Showing list for priority "+ parent.getItemAtPosition(position).toString(), Toast.LENGTH_SHORT).show();
+                //ToDo Change ArrayList to show request of selected priority
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //Nothing
+            }
+        });
         //Get requestData from database
 
         //temporary arrayList

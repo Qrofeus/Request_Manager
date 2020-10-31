@@ -26,7 +26,7 @@ public class AdminLogin extends AppCompatActivity {
             public void onClick(View v) {
                 //if(database_contains_(username.getText().toString())){
                     //get password for provided username
-                    if(password.getText().toString().equals("User_Password_from_database")){
+                    if(password.getText().toString().equals("QrofeusPass")){
                         startActivity(new Intent(AdminLogin.this, AdminDashboard.class));
                         finish();
                     } else {

@@ -19,9 +19,9 @@
             android:id="@+id/cell_content_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:cardCornerRadius="15dp"
-            android:background="#2196F3"
-            android:visibility="gone">
+            android:visibility="gone"
+            app:cardBackgroundColor="#2196F3"
+            app:cardCornerRadius="15dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -63,13 +63,14 @@
                         app:cardBackgroundColor="#4CAF50"
                         app:cardCornerRadius="10dp">
 
-                        <TextView
+                        <Button
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:background="#006200EE"
                             android:gravity="center"
                             android:text="View Request"
                             android:textColor="#FFFFFF"
-                            android:textSize="25sp" />
+                            android:textSize="20sp" />
 
                     </androidx.cardview.widget.CardView>
 
@@ -82,13 +83,14 @@
                         app:cardBackgroundColor="#4CAF50"
                         app:cardCornerRadius="10dp">
 
-                        <TextView
+                        <Button
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
+                            android:background="#006200EE"
                             android:gravity="center"
                             android:text="Manage"
                             android:textColor="#FFFFFF"
-                            android:textSize="25sp" />
+                            android:textSize="20sp" />
 
                     </androidx.cardview.widget.CardView>
                 </LinearLayout>
