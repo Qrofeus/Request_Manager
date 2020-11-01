@@ -14,9 +14,6 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
-
-        final TextView textView = (TextView) findViewById(R.id.title_dashboard);
-        textView.setAnimation(AnimationUtils.loadAnimation(this, R.anim.top_animation));
     }
 
     public void requestList(View view){
@@ -27,7 +24,7 @@ public class Dashboard extends AppCompatActivity {
         startActivity(new Intent(this, RegisterRequest.class));
     }
 
-    public void adminDashboard(View view){
+    public void adminLogin(View view){
         startActivity(new Intent(this, AdminLogin.class));
     }
 }

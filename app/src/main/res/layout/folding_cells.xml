@@ -20,7 +20,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:visibility="gone"
-            app:cardBackgroundColor="#2196F3"
+            app:cardBackgroundColor="#32A877"
             app:cardCornerRadius="15dp">
 
             <RelativeLayout
@@ -60,7 +60,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
-                        app:cardBackgroundColor="#4CAF50"
+                        app:cardBackgroundColor="#FF9800"
                         app:cardCornerRadius="10dp">
 
                         <Button
@@ -80,7 +80,7 @@
                         android:layout_height="match_parent"
                         android:layout_marginHorizontal="5dp"
                         android:layout_weight="1"
-                        app:cardBackgroundColor="#4CAF50"
+                        app:cardBackgroundColor="#FF9800"
                         app:cardCornerRadius="10dp">
 
                         <Button
@@ -106,7 +106,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#0050AF">
+                android:background="#673AB7">
 
                 <TextView
                     android:id="@+id/request_subject"

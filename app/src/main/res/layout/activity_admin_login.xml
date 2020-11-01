@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_login"
+    android:background="#0032A8"
     tools:context=".AdminLogin">
 
     <TextView
@@ -14,7 +14,7 @@
         android:layout_marginTop="75dp"
         android:fontFamily="sans-serif-medium"
         android:text="@string/admin_login"
-        android:textColor="#BFFFFFFF"
+        android:textColor="#80FFFFFF"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,36 +23,45 @@
     <TextView
         android:id="@+id/text_error_message"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:text="@string/error_message"
-        android:textColor="#FF7F7F"
-        android:visibility="invisible"
+        android:textColor="#FF0000"
+        android:textSize="15sp"
+        android:visibility="visible"
         app:layout_constraintBottom_toTopOf="@+id/text_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <EditText
         android:id="@+id/text_username"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
         android:layout_marginTop="130dp"
         android:ems="10"
+        android:gravity="center"
         android:hint="@string/username"
         android:inputType="textPersonName"
         android:text=""
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/login_page_title" />
 
     <EditText
         android:id="@+id/text_password"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="40dp"
         android:layout_marginTop="5dp"
         android:ems="10"
+        android:gravity="center"
         android:hint="@string/password"
         android:inputType="textPassword"
+        android:textColor="@android:color/white"
+        android:textColorHint="@android:color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/text_username" />
@@ -63,13 +72,13 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:text="Forgot Password"
-        android:textColor="#FF7F7F"
+        android:textColor="#FFFFFF"
         app:layout_constraintEnd_toEndOf="@+id/text_password"
         app:layout_constraintTop_toBottomOf="@+id/text_password" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/button_login"
-        android:layout_width="300dp"
+        android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginBottom="75dp"
         app:cardBackgroundColor="#8BC34A"
