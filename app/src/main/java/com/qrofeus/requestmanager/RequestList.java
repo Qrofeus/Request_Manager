@@ -20,11 +20,9 @@ public class RequestList extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_request_list);
 
-        Bundle bundle = getIntent().getExtras();
-
         final Spinner prioritySpin = findViewById(R.id.priority_spin);
         final RecyclerView recyclerView = findViewById(R.id.request_recycler);
-        final String user = bundle.getString("User");
+        final String user = getIntent().getExtras().getString("User");
         final AdapterClass adapterClass = new AdapterClass(this, user);
 
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);

@@ -36,7 +36,6 @@ public class AdminLogin extends AppCompatActivity {
                     //get password for provided username
                     if(password.getText().toString().equals("QrofeusPass")){
                         startActivity(new Intent(AdminLogin.this, AdminDashboard.class).putExtra("Username", username.getText().toString()));
-                        finishActivity(R.layout.activity_dashboard);
                         finish();
                     } else {
                         error_message.setVisibility(View.VISIBLE);
