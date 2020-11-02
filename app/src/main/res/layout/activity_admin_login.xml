@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#0032A8"
+    android:background="#673AB7"
     tools:context=".AdminLogin">
 
     <TextView
@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="75dp"
         android:fontFamily="sans-serif-medium"
-        android:text="@string/admin_login"
-        android:textColor="#80FFFFFF"
+        android:textColor="#B388FF"
         android:textSize="60sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -28,7 +27,7 @@
         android:text="@string/error_message"
         android:textColor="#FF0000"
         android:textSize="15sp"
-        android:visibility="visible"
+        android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/text_username"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -77,11 +76,11 @@
         app:layout_constraintTop_toBottomOf="@+id/text_password" />
 
     <androidx.cardview.widget.CardView
-        android:id="@+id/button_login"
+        android:id="@+id/button_submit"
         android:layout_width="350dp"
         android:layout_height="50dp"
         android:layout_marginBottom="75dp"
-        app:cardBackgroundColor="#8BC34A"
+        app:cardBackgroundColor="#D500F9"
         app:cardCornerRadius="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -92,14 +91,13 @@
             android:layout_height="match_parent">
 
             <TextView
-                android:id="@+id/text_login"
+                android:id="@+id/text_submit"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:layout_marginStart="0dp"
                 android:layout_marginLeft="0dp"
                 android:fontFamily="sans-serif-medium"
-                android:text="Login"
                 android:textColor="#FFFFFF"
                 android:textSize="24sp" />
         </RelativeLayout>

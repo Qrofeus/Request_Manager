@@ -8,7 +8,8 @@
     <string name="username">Username</string>
     <string name="password">Password</string>
     <string name="admin">Admin</string>
-    <string name="contact_us">Contact Us</string>
+    <string name="contact_us">ContactUs</string>
+    <string name="login">Login</string>
 
     <string-array name="priorities">
         <item>Low</item>

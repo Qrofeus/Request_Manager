@@ -1,7 +1,10 @@
 package com.qrofeus.requestmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 public class AdminDashboard extends AppCompatActivity {
 
@@ -14,5 +17,11 @@ public class AdminDashboard extends AppCompatActivity {
 
         //For request list from admin
         //startActivity(new Intent(this, RequestList.class).putExtra("User", "Admin"));
+    }
+
+    public void logout(View view){
+        //ToDo add pop up confirmation
+        startActivity(new Intent(AdminDashboard.this, Dashboard.class));
+        finish();
     }
 }

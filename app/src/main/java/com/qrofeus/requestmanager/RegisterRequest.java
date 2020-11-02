@@ -38,9 +38,6 @@ public class RegisterRequest extends AppCompatActivity {
         req_id.setText(request_id);*/
 
         // Set up dropdown list
-
-        /*ArrayAdapter<String> priority_adapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_spinner_item, getResources().getStringArray(R.array.priorities));*/
         ArrayAdapter<CharSequence> priority_adapter = ArrayAdapter.createFromResource(this, R.array.priorities, android.R.layout.simple_spinner_item);
         priority_adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         priority.setAdapter(priority_adapter);
@@ -70,6 +67,7 @@ public class RegisterRequest extends AppCompatActivity {
         });
 
         //storeData();
+
     }
 
     private String generateID() {
@@ -79,5 +77,11 @@ public class RegisterRequest extends AppCompatActivity {
 
     private void storeData() {
         //ToDo: Store all request parameters in database
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
     }
 }

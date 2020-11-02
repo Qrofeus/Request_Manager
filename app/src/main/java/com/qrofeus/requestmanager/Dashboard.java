@@ -1,11 +1,15 @@
 package com.qrofeus.requestmanager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.view.animation.DecelerateInterpolator;
 import android.widget.TextView;
 
 public class Dashboard extends AppCompatActivity {
@@ -14,6 +18,13 @@ public class Dashboard extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_dashboard);
+
+        Animation fadeIn = new AlphaAnimation(0, 1);
+        fadeIn.setInterpolator(new DecelerateInterpolator());
+        fadeIn.setDuration(2000);
+
+        final CardView titleCard = findViewById(R.id.title_card);
+        titleCard.setAnimation(fadeIn);
     }
 
     public void requestList(View view){
@@ -25,6 +36,6 @@ public class Dashboard extends AppCompatActivity {
     }
 
     public void adminLogin(View view){
-        startActivity(new Intent(this, AdminLogin.class));
+        startActivity(new Intent(this, AdminLogin.class).putExtra("Action", "AdminLogin"));
     }
 }
