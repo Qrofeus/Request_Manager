@@ -7,7 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
 
-public class AdminDashboard extends AppCompatActivity {
+public class AdminDashboard extends AppCompatActivity implements DialogClass.DialogResults {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,7 +20,7 @@ public class AdminDashboard extends AppCompatActivity {
     }
 
     public void registerAdmin(View view){
-        //Start Activity register User
+        startActivity(new Intent(AdminDashboard.this, RegisterAdmin.class));
     }
 
     public void profile(View view){
@@ -32,7 +32,12 @@ public class AdminDashboard extends AppCompatActivity {
     }
 
     public void logout(View view){
-        //ToDo add pop up confirmation
+        DialogClass dialogClass = new DialogClass("Closing Admin Dashboard", "Confirm Logout");
+        dialogClass.show(getSupportFragmentManager(), "Confirm Logout");
+    }
+
+    @Override
+    public void confirmDialog() {
         finish();
     }
 }

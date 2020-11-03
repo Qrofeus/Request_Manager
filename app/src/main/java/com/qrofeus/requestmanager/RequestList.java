@@ -59,4 +59,10 @@ public class RequestList extends AppCompatActivity {
 
         adapterClass.setupAdapter(list);
     }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        finish();
+    }
 }
