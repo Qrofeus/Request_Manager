@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class AdminLogin extends AppCompatActivity {
+public class AdminLogin extends AppCompatActivity implements DialogClass.DialogResults {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -35,7 +35,9 @@ public class AdminLogin extends AppCompatActivity {
                     //if(database_contains_(username.getText().toString())){
                     //get password for provided username
                     if(password.getText().toString().equals("QrofeusPass")){
-                        startActivity(new Intent(AdminLogin.this, AdminDashboard.class).putExtra("Username", username.getText().toString()));
+                        startActivity(new Intent(AdminLogin.this, AdminDashboard.class)
+                                .putExtra("Username", username.getText().toString())
+                                .putExtra("Password", password.getText().toString()));
                         finish();
                     } else {
                         error_message.setVisibility(View.VISIBLE);
@@ -46,21 +48,21 @@ public class AdminLogin extends AppCompatActivity {
         }
 
         if (action.equals("DeleteAccount")){
-            final String username_loggedIn = getIntent().getExtras().getString("Username");
-            username.setText(username_loggedIn);
             titleLogin.setText("Deleting Account");
-            submitCard.setText("Delete Account");
+            submitCard.setText("Delete");
 
             final EditText password = findViewById(R.id.text_password);
             final TextView error_message = findViewById(R.id.text_error_message);
 
+            //ToDo Login User if present in database
             button_submit.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    //if(database_contains_(username.getText().toString())){
                     //get password for provided username
                     if(password.getText().toString().equals("QrofeusPass")){
-                        //ToDo add pop up for confirmation for account deletion
-                        startActivity(new Intent(AdminLogin.this, Dashboard.class));
+                        DialogClass dialogClass = new DialogClass("Confirm account deletion", "Delete my account");
+                        dialogClass.show(getSupportFragmentManager(), "Delete Account");
                         finish();
                     } else {
                         error_message.setVisibility(View.VISIBLE);
@@ -69,7 +71,13 @@ public class AdminLogin extends AppCompatActivity {
                 }
             });
         }
-
         //ToDo Add forgot_password functionality
+    }
+
+    @Override
+    public void confirmDialog() {
+        //Delete User from database
+        getParent().finish();
+        finish();
     }
 }

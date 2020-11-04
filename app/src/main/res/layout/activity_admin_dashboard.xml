@@ -18,7 +18,7 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/colorPrimary"
+            android:background="#246EB9"
             android:padding="15dp">
 
             <TextView
@@ -86,7 +86,8 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:background="@drawable/card_back">
 
                             <ImageView
                                 android:id="@+id/imageView1"
@@ -123,7 +124,8 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:background="@drawable/card_back">
 
                             <ImageView
                                 android:id="@+id/imageView2"
@@ -178,7 +180,8 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:background="@drawable/card_back">
 
                             <ImageView
                                 android:id="@+id/imageView3"
@@ -215,7 +218,8 @@
 
                         <RelativeLayout
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent">
+                            android:layout_height="match_parent"
+                            android:background="@drawable/card_back">
 
                             <ImageView
                                 android:id="@+id/imageView4"

@@ -10,7 +10,6 @@
         android:id="@+id/title_card"
         android:layout_width="wrap_content"
         android:layout_height="200dp"
-        android:padding="20dp"
         app:cardElevation="10dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,7 +18,8 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#304FFE">
+            android:background="#1D3557"
+            android:padding="20dp">
 
             <TextView
                 android:id="@+id/title_dashboard"
@@ -31,8 +31,8 @@
                 android:fontFamily="@font/bangers"
                 android:gravity="center"
                 android:text="@string/app_name"
-                android:textColor="#FFEB3B"
-                android:textSize="60sp" />
+                android:textColor="#457B9D"
+                android:textSize="55sp" />
 
         </RelativeLayout>
     </androidx.cardview.widget.CardView>
@@ -41,7 +41,7 @@
         android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_marginBottom="25dp"
+        android:layout_marginBottom="15dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@id/title_card">
 
@@ -57,7 +57,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
                 android:onClick="makeRequest"
-                app:cardCornerRadius="15dp"
+                app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">
 
                 <RelativeLayout
@@ -67,8 +67,8 @@
 
                     <ImageView
                         android:id="@+id/imageView1"
-                        android:layout_width="125dp"
-                        android:layout_height="125dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="20dp"
                         android:layout_marginLeft="20dp"
@@ -78,12 +78,12 @@
                         android:id="@+id/text_makeRequest"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
                         android:layout_marginStart="20dp"
                         android:layout_marginLeft="20dp"
                         android:layout_toEndOf="@id/imageView1"
                         android:layout_toRightOf="@id/imageView1"
-                        android:fontFamily="@font/baloo"
-                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/poppins_semibold"
                         android:text="@string/make_a_request"
                         android:textSize="24sp" />
                 </RelativeLayout>
@@ -96,7 +96,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
                 android:onClick="requestList"
-                app:cardCornerRadius="15dp"
+                app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">
 
                 <RelativeLayout
@@ -106,8 +106,8 @@
 
                     <ImageView
                         android:id="@+id/imageView2"
-                        android:layout_width="125dp"
-                        android:layout_height="125dp"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
                         android:layout_marginStart="20dp"
@@ -117,14 +117,14 @@
                         android:id="@+id/text_requestQueue"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="20dp"
+                        android:layout_marginLeft="20dp"
                         android:layout_marginTop="5dp"
                         android:layout_toEndOf="@id/imageView2"
                         android:layout_toRightOf="@id/imageView2"
-                        android:layout_centerVertical="true"
-                        android:fontFamily="@font/baloo"
+                        android:fontFamily="@font/poppins_semibold"
                         android:text="@string/request_queue"
-                        android:layout_marginLeft="20dp"
-                        android:layout_marginStart="20dp"
                         android:textSize="24sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
@@ -135,7 +135,7 @@
                 android:layout_height="100dp"
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
-                app:cardCornerRadius="15dp"
+                app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">
 
                 <RelativeLayout
@@ -157,14 +157,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@id/imageView3"
-                        android:fontFamily="@font/baloo"
-                        android:text="@string/contact_us"
-                        android:textSize="24sp"
+                        android:layout_marginTop="5dp"
                         android:layout_toEndOf="@id/imageView3"
-                        android:layout_marginStart="20dp" />
+                        android:layout_toRightOf="@id/imageView3"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="@string/contact_us"
+                        android:textSize="24sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 
@@ -175,7 +175,7 @@
                 android:layout_marginHorizontal="10dp"
                 android:layout_marginTop="10dp"
                 android:onClick="adminLogin"
-                app:cardCornerRadius="15dp"
+                app:cardCornerRadius="5dp"
                 app:cardElevation="5dp">
 
                 <RelativeLayout
@@ -197,14 +197,14 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginTop="5dp"
+                        android:layout_marginStart="20dp"
                         android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@id/imageView4"
-                        android:fontFamily="@font/baloo"
-                        android:text="@string/admin"
-                        android:textSize="24sp"
+                        android:layout_marginTop="5dp"
                         android:layout_toEndOf="@id/imageView4"
-                        android:layout_marginStart="20dp" />
+                        android:layout_toRightOf="@id/imageView4"
+                        android:fontFamily="@font/poppins_semibold"
+                        android:text="@string/admin"
+                        android:textSize="24sp" />
                 </RelativeLayout>
             </androidx.cardview.widget.CardView>
 

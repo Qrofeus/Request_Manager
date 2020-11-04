@@ -62,12 +62,15 @@ public class RegisterRequest extends AppCompatActivity {
                 phone_number = phone.getText().toString();
                 subject_text = subject.getText().toString();
                 details_text = details.getText().toString();
-                Toast.makeText(RegisterRequest.this, "Request Registered", Toast.LENGTH_SHORT).show();
+                if (username_text.isEmpty() || email_address.isEmpty() || phone_number.isEmpty() || subject_text.isEmpty() || details_text.isEmpty()){
+                    Toast.makeText(RegisterRequest.this, "Please fill all the boxes", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(RegisterRequest.this, "Request Registered", Toast.LENGTH_SHORT).show();
+                    //storeData();
+                    finish();
+                }
             }
         });
-
-        //storeData();
-
     }
 
     private String generateID() {
