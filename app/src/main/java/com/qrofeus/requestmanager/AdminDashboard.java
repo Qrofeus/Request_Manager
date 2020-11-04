@@ -4,10 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AdminDashboard extends AppCompatActivity implements DialogClass.DialogResults, ProfilePopUp.ProfileInterface {
+public class AdminDashboard extends AppCompatActivity implements DialogClass.DialogResults, ProfilePopUp.ProfileInterface, UserEntry.UserEntryInterface {
 
     private TextView textUsername;
     private String username;
@@ -25,11 +26,12 @@ public class AdminDashboard extends AppCompatActivity implements DialogClass.Dia
     }
 
     public void registerAdmin(View view){
-        startActivity(new Intent(AdminDashboard.this, RegisterAdmin.class));
+        UserEntry entry = new UserEntry("Register Admin User", "Register");
+        entry.show(getSupportFragmentManager(), "Register User");
     }
 
     public void profile(View view){
-        ProfilePopUp popUp = new ProfilePopUp(username, password, this);
+        ProfilePopUp popUp = new ProfilePopUp(username, password);
         popUp.show(getSupportFragmentManager(), "Profile");
     }
 
@@ -45,8 +47,7 @@ public class AdminDashboard extends AppCompatActivity implements DialogClass.Dia
     }
 
     public void logout(View view){
-        DialogClass dialogClass = new DialogClass("Closing Admin Dashboard", "Confirm Logout");
-        dialogClass.show(getSupportFragmentManager(), "Confirm Logout");
+        onBackPressed();
     }
 
     @Override
@@ -56,7 +57,23 @@ public class AdminDashboard extends AppCompatActivity implements DialogClass.Dia
 
     @Override
     public void updateDetails(String username, String password) {
-        textUsername.setText(username);
-        //Update User details in database
+        if (!this.username.equals(username) || !this.password.equals(password)){
+            textUsername.setText(username);
+            //Update User details in database
+        } else {
+            Toast.makeText(this, "No changes in user details", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void deleteUser() {
+        //Remove User from database
+        Toast.makeText(AdminDashboard.this, "Admin User Removed", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void userDetails(String username, String password) {
+        //Add User to database
+        Toast.makeText(this, "New Admin User added", Toast.LENGTH_SHORT).show();
     }
 }

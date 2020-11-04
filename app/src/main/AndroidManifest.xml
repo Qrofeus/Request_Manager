@@ -9,8 +9,6 @@
         android:roundIcon="@mipmap/icon_app_circle"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RegisterAdmin" />
-        <activity android:name=".AdminLogin" />
         <activity android:name=".AdminDashboard" />
         <activity android:name=".RegisterRequest" />
         <activity android:name=".Dashboard" />

@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="350dp"
-    android:layout_height="350dp"
+    android:layout_height="wrap_content"
     android:layout_gravity="center">
 
     <ImageView
         android:id="@+id/profile_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="15dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/ic_profile"/>
 
@@ -42,5 +42,18 @@
         android:text="Delete Account"
         android:background="#246EB9"
         android:layout_marginVertical="15dp"/>
+
+    <Button
+        android:id="@+id/profile_confirm"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/profile_delete"
+        android:textColor="@android:color/white"
+        android:text="Confirm Account Deletion"
+        android:background="#D50000"
+        android:layout_marginBottom="10dp"
+        android:enabled="false"
+        android:visibility="gone"/>
 
 </RelativeLayout>

@@ -9,8 +9,9 @@ import android.view.View;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.DecelerateInterpolator;
+import android.widget.Toast;
 
-public class Dashboard extends AppCompatActivity {
+public class Dashboard extends AppCompatActivity implements UserEntry.UserEntryInterface {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +35,21 @@ public class Dashboard extends AppCompatActivity {
     }
 
     public void adminLogin(View view) {
-        startActivity(new Intent(this, AdminLogin.class).putExtra("Action", "AdminLogin"));
+        UserEntry entry = new UserEntry("Login as Admin User", "Login");
+        entry.show(getSupportFragmentManager(), "Login User");
+    }
+
+    @Override
+    public void userDetails(String username, String password) {
+        //if(database_contains_(username.getText().toString())){
+        //get password for provided username
+        if (password.equals("QrofeusPass")) {
+            startActivity(new Intent(this, AdminDashboard.class)
+                    .putExtra("Username", username)
+                    .putExtra("Password", password));
+            finish();
+        } else {
+            Toast.makeText(this, "Invalid Username / Password", Toast.LENGTH_SHORT).show();
+        }
     }
 }

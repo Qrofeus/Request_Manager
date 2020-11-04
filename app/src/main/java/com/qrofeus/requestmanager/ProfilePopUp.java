@@ -10,6 +10,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -23,12 +24,10 @@ public class ProfilePopUp extends AppCompatDialogFragment {
 
     private final String username;
     private final String password;
-    private final Context context;
 
-    public ProfilePopUp(String username, String password, Context context) {
+    public ProfilePopUp(String username, String password) {
         this.username = username;
         this.password = password;
-        this.context = context;
     }
 
     @NonNull
@@ -60,12 +59,22 @@ public class ProfilePopUp extends AppCompatDialogFragment {
         username_text.setText(username);
         password_text = view.findViewById(R.id.profile_password);
         password_text.setText(password);
-        Button delete_button = view.findViewById(R.id.profile_delete);
+        final Button delete_button = view.findViewById(R.id.profile_delete);
+        final Button confirm_delete = view.findViewById(R.id.profile_confirm);
 
         delete_button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                startActivity(new Intent(context, AdminLogin.class).putExtra("Action", "DeleteAccount"));
+                delete_button.setClickable(false);
+                confirm_delete.setEnabled(true);
+                confirm_delete.setVisibility(View.VISIBLE);
+            }
+        });
+
+        confirm_delete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                profile.deleteUser();
             }
         });
 
@@ -84,5 +93,6 @@ public class ProfilePopUp extends AppCompatDialogFragment {
 
     public interface ProfileInterface {
         void updateDetails(String username, String password);
+        void deleteUser();
     }
 }
