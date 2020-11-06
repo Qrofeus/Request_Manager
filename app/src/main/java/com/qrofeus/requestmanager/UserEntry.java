@@ -3,12 +3,13 @@ package com.qrofeus.requestmanager;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -16,12 +17,12 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class UserEntry extends AppCompatDialogFragment {
 
-    private final String title;
+    private final String title_text;
     private final String button_text;
     private UserEntryInterface entryInterface;
 
-    public UserEntry(String title, String button_text) {
-        this.title = title;
+    public UserEntry(String title_text, String button_text) {
+        this.title_text = title_text;
         this.button_text = button_text;
     }
 
@@ -32,31 +33,45 @@ public class UserEntry extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.activity_user_entry, null);
 
-        final EditText username_text = view.findViewById(R.id.login_username);
-        final EditText password_text = view.findViewById(R.id.login_password);
+        final EditText username_view = view.findViewById(R.id.login_username);
+        final EditText password_view = view.findViewById(R.id.login_password);
+        final TextView title_view = view.findViewById(R.id.login_title);
+        final Button button_login = view.findViewById(R.id.login_button);
+        final Button button_confirm = view.findViewById(R.id.login_confirm);
 
-        if (button_text.equals("Login")){
-            password_text.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+        if (button_text.equals("Register")) {
+            password_view.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
         }
 
-        builder.setView(view)
-                .setTitle(title)
-                .setNeutralButton("Cancel", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
+        title_view.setText(title_text);
+        button_login.setText(button_text);
+        button_login.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String username = username_view.getText().toString();
+                final String password = password_view.getText().toString();
 
-                    }
-                })
-                .setPositiveButton(button_text, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        String username = username_text.getText().toString();
-                        String password = password_text.getText().toString();
+                if (button_text.equals("Register")) {
+                    // Register User
+                    button_login.setClickable(false);
+                    button_login.setBackgroundColor(getResources().getColor(R.color.disabledButton));
+                    button_confirm.setVisibility(View.VISIBLE);
+                    button_confirm.setClickable(true);
 
-                        entryInterface.userDetails(username, password);
-                    }
-                });
+                    button_confirm.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            entryInterface.userDetails(username, password);
+                        }
+                    });
+                } else {
+                    // Login
+                    entryInterface.userDetails(username, password);
+                }
+            }
+        });
 
+        builder.setView(view);
         return builder.create();
     }
 

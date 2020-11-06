@@ -4,13 +4,11 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,7 +31,7 @@ public class ProfilePopUp extends AppCompatDialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(R.layout.profile_user, null);
 
@@ -66,6 +64,7 @@ public class ProfilePopUp extends AppCompatDialogFragment {
             @Override
             public void onClick(View v) {
                 delete_button.setClickable(false);
+                delete_button.setBackgroundColor(getResources().getColor(R.color.disabledButton));
                 confirm_delete.setEnabled(true);
                 confirm_delete.setVisibility(View.VISIBLE);
             }

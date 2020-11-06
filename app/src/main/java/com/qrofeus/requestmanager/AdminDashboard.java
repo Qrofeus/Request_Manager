@@ -13,6 +13,8 @@ public class AdminDashboard extends AppCompatActivity implements DialogClass.Dia
     private TextView textUsername;
     private String username;
     private String password;
+    private UserEntry entry;
+    private ProfilePopUp popUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,12 +28,12 @@ public class AdminDashboard extends AppCompatActivity implements DialogClass.Dia
     }
 
     public void registerAdmin(View view){
-        UserEntry entry = new UserEntry("Register Admin User", "Register");
+        entry = new UserEntry("Register Admin User", "Register");
         entry.show(getSupportFragmentManager(), "Register User");
     }
 
     public void profile(View view){
-        ProfilePopUp popUp = new ProfilePopUp(username, password);
+        popUp = new ProfilePopUp(username, password);
         popUp.show(getSupportFragmentManager(), "Profile");
     }
 
@@ -41,7 +43,6 @@ public class AdminDashboard extends AppCompatActivity implements DialogClass.Dia
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         DialogClass dialogClass = new DialogClass("Closing Admin Dashboard", "Confirm Logout");
         dialogClass.show(getSupportFragmentManager(), "Confirm Logout");
     }
@@ -52,6 +53,7 @@ public class AdminDashboard extends AppCompatActivity implements DialogClass.Dia
 
     @Override
     public void confirmDialog() {
+        startActivity(new Intent(this, Dashboard.class));
         finish();
     }
 
@@ -69,11 +71,14 @@ public class AdminDashboard extends AppCompatActivity implements DialogClass.Dia
     public void deleteUser() {
         //Remove User from database
         Toast.makeText(AdminDashboard.this, "Admin User Removed", Toast.LENGTH_SHORT).show();
+        popUp.dismiss();
+        confirmDialog();
     }
 
     @Override
     public void userDetails(String username, String password) {
         //Add User to database
         Toast.makeText(this, "New Admin User added", Toast.LENGTH_SHORT).show();
+        entry.dismiss();
     }
 }
