@@ -14,18 +14,18 @@ public class RequestClass {
     }
 
     public String getRequest_id() {
-        return request_id;
+        return "Request ID:" + request_id;
     }
 
     public String getUsername() {
-        return username;
+        return "Username: " + username;
     }
 
     public String getRequest_subject() {
-        return request_subject;
+        return "Subject: " + request_subject;
     }
 
     public String getRequest_details() {
-        return request_details;
+        return "Details: " + request_details;
     }
 }

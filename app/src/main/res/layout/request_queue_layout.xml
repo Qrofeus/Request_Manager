@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RequestQueue">
+
+    <TextView
+        android:id="@+id/recycler_priority"
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginStart="0dp"
+        android:layout_marginLeft="0dp"
+        android:gravity="center"
+        android:paddingHorizontal="20dp"
+        android:text="Priority: "
+        android:textColor="@android:color/black"
+        android:textSize="24sp" />
+
+    <Spinner
+        android:id="@+id/recycler_prioritySpin"
+        android:layout_width="0dp"
+        android:layout_height="50dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginEnd="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_toEndOf="@id/recycler_priority"
+        android:layout_toRightOf="@id/recycler_priority"
+        android:padding="10dp" />
+
+    <SearchView
+        android:id="@+id/recycler_search"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_below="@id/recycler_priority"
+        android:visibility="gone" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_request"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/recycler_search"
+        android:padding="10dp"
+        android:scrollbars="vertical" />
+
+</RelativeLayout>

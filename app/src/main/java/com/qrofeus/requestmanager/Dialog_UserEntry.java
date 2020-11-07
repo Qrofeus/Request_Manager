@@ -15,13 +15,13 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class UserEntry extends AppCompatDialogFragment {
+public class Dialog_UserEntry extends AppCompatDialogFragment {
 
     private final String title_text;
     private final String button_text;
-    private UserEntryInterface entryInterface;
+    private Interface_UserEntry entryInterface;
 
-    public UserEntry(String title_text, String button_text) {
+    public Dialog_UserEntry(String title_text, String button_text) {
         this.title_text = title_text;
         this.button_text = button_text;
     }
@@ -31,7 +31,7 @@ public class UserEntry extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.activity_user_entry, null);
+        View view = inflater.inflate(R.layout.dialog_user_entry, null);
 
         final EditText username_view = view.findViewById(R.id.login_username);
         final EditText password_view = view.findViewById(R.id.login_password);
@@ -79,13 +79,13 @@ public class UserEntry extends AppCompatDialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            entryInterface = (UserEntryInterface) context;
+            entryInterface = (Interface_UserEntry) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + "Class must implement UserEntryInterface");
+            throw new ClassCastException(context.toString() + "Class must implement Interface_UserEntry");
         }
     }
 
-    public interface UserEntryInterface{
+    public interface Interface_UserEntry {
         void userDetails(String username, String password);
     }
 }

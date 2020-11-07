@@ -10,13 +10,13 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class DialogClass extends AppCompatDialogFragment {
+public class Dialog_Confirmation extends AppCompatDialogFragment {
 
     private final String message;
     private final String title;
-    private DialogResults results;
+    private Interface_DialogResults results;
 
-    public DialogClass(String title, String message) {
+    public Dialog_Confirmation(String title, String message) {
         this.message = message;
         this.title = title;
     }
@@ -46,13 +46,13 @@ public class DialogClass extends AppCompatDialogFragment {
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         try {
-            results = (DialogResults) context;
+            results = (Interface_DialogResults) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " - Implement DialogResults");
+            throw new ClassCastException(context.toString() + " Class must implement Interface_DialogResults");
         }
     }
 
-    public interface DialogResults{
+    public interface Interface_DialogResults {
         void confirmDialog();
     }
 }

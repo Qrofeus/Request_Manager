@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="10dp">
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/request_listCard"
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            app:cardCornerRadius="5dp"
+            app:cardElevation="10dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#E63946"
+                android:padding="15dp">
+
+                <TextView
+                    android:id="@+id/request_listID"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp"
+                    android:gravity="center"
+                    android:text="Request ID: --------"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+                <TextView
+                    android:id="@+id/request_listSubject"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_below="@id/request_listID"
+                    android:gravity="start"
+                    android:text="Subject: - - - - - - - - - -"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
+
+            </RelativeLayout>
+
+        </androidx.cardview.widget.CardView>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/request_listCard"
+            android:layout_marginHorizontal="15dp"
+            android:background="@color/disabledButton"
+            android:gravity="center"
+            android:text="Show Details"
+            android:textColor="@android:color/black" />
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

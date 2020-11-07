@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,14 +29,14 @@ public class RegisterRequest extends AppCompatActivity {
         final EditText username = findViewById(R.id.username);
         final EditText mail_id = findViewById(R.id.email_address);
         final EditText phone = findViewById(R.id.contact_phone);
-        //final TextView req_id = findViewById(R.id.requestID);
+        final TextView req_id = findViewById(R.id.request_id);
         final EditText subject = findViewById(R.id.request_subject);
         final EditText details = findViewById(R.id.request_details);
         final Spinner priority = findViewById(R.id.priority_dropdown);
         final Button register = findViewById(R.id.button_register);
 
-        /*String request_id = generateID();
-        req_id.setText(request_id);*/
+        String request_id = generateID();
+        req_id.setText(request_id);
 
         // Set up dropdown list
         ArrayAdapter<CharSequence> priority_adapter = ArrayAdapter.createFromResource(this, R.array.priorities, android.R.layout.simple_spinner_item);
@@ -66,7 +67,7 @@ public class RegisterRequest extends AppCompatActivity {
                     Toast.makeText(RegisterRequest.this, "Please fill all the boxes", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(RegisterRequest.this, "Request Registered", Toast.LENGTH_SHORT).show();
-                    //storeData();
+                    // storeData();
                     finish();
                 }
             }
@@ -75,7 +76,7 @@ public class RegisterRequest extends AppCompatActivity {
 
     private String generateID() {
         //ToDo: Generate Request ID
-        return "Request ID : " + "========";
+        return "Request ID: " + "00000001";
     }
 
     private void storeData() {

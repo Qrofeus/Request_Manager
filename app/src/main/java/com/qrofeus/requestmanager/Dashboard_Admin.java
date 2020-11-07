@@ -8,13 +8,13 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AdminDashboard extends AppCompatActivity implements DialogClass.DialogResults, ProfilePopUp.ProfileInterface, UserEntry.UserEntryInterface {
+public class Dashboard_Admin extends AppCompatActivity implements Dialog_Confirmation.Interface_DialogResults, Dialog_AdminProfile.ProfileInterface, Dialog_UserEntry.Interface_UserEntry {
 
     private TextView textUsername;
     private String username;
     private String password;
-    private UserEntry entry;
-    private ProfilePopUp popUp;
+    private Dialog_UserEntry entry;
+    private Dialog_AdminProfile popUp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,22 +28,22 @@ public class AdminDashboard extends AppCompatActivity implements DialogClass.Dia
     }
 
     public void registerAdmin(View view){
-        entry = new UserEntry("Register Admin User", "Register");
+        entry = new Dialog_UserEntry("Register Admin User", "Register");
         entry.show(getSupportFragmentManager(), "Register User");
     }
 
     public void profile(View view){
-        popUp = new ProfilePopUp(username, password);
+        popUp = new Dialog_AdminProfile(username, password);
         popUp.show(getSupportFragmentManager(), "Profile");
     }
 
     public void requestQueue(View view){
-        startActivity(new Intent(this, RequestList.class).putExtra("User", "Admin"));
+        startActivity(new Intent(this, RequestQueue.class).putExtra("User", "Admin"));
     }
 
     @Override
     public void onBackPressed() {
-        DialogClass dialogClass = new DialogClass("Closing Admin Dashboard", "Confirm Logout");
+        Dialog_Confirmation dialogClass = new Dialog_Confirmation("Closing Admin Dashboard", "Confirm Logout");
         dialogClass.show(getSupportFragmentManager(), "Confirm Logout");
     }
 
@@ -53,7 +53,7 @@ public class AdminDashboard extends AppCompatActivity implements DialogClass.Dia
 
     @Override
     public void confirmDialog() {
-        startActivity(new Intent(this, Dashboard.class));
+        startActivity(new Intent(this, Dashboard_User.class));
         finish();
     }
 
@@ -70,7 +70,7 @@ public class AdminDashboard extends AppCompatActivity implements DialogClass.Dia
     @Override
     public void deleteUser() {
         //Remove User from database
-        Toast.makeText(AdminDashboard.this, "Admin User Removed", Toast.LENGTH_SHORT).show();
+        Toast.makeText(Dashboard_Admin.this, "Admin User Removed", Toast.LENGTH_SHORT).show();
         popUp.dismiss();
         confirmDialog();
     }

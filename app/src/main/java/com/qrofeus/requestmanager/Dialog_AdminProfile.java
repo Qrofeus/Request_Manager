@@ -14,7 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatDialogFragment;
 
-public class ProfilePopUp extends AppCompatDialogFragment {
+public class Dialog_AdminProfile extends AppCompatDialogFragment {
 
     private EditText username_text;
     private EditText password_text;
@@ -23,7 +23,7 @@ public class ProfilePopUp extends AppCompatDialogFragment {
     private final String username;
     private final String password;
 
-    public ProfilePopUp(String username, String password) {
+    public Dialog_AdminProfile(String username, String password) {
         this.username = username;
         this.password = password;
     }
@@ -33,7 +33,7 @@ public class ProfilePopUp extends AppCompatDialogFragment {
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.profile_user, null);
+        View view = inflater.inflate(R.layout.dialog_profile_user, null);
 
         builder.setView(view)
                 .setTitle("Profile")
