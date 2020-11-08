@@ -1,7 +1,6 @@
 package com.qrofeus.requestmanager;
 
 import android.os.Bundle;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -11,9 +10,6 @@ import java.util.ArrayList;
 
 public class RequestQueue extends AppCompatActivity {
 
-    private RecyclerView recyclerView;
-    private RequestAdapter adapter;
-    private RecyclerView.LayoutManager layoutManager;
     private Dialog_RequestDetails requestDetails;
 
     private ArrayList<RequestClass> requestQueue;
@@ -36,10 +32,10 @@ public class RequestQueue extends AppCompatActivity {
         requestQueue.add(new RequestClass("012451", "User 8", "Subject 8", "Details 8"));
 
         // Set Up Recycler View
-        recyclerView = findViewById(R.id.recycler_request);
+        RecyclerView recyclerView = findViewById(R.id.recycler_request);
         recyclerView.setHasFixedSize(true);
-        layoutManager = new LinearLayoutManager(this);
-        adapter = new RequestAdapter(requestQueue);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
+        RequestAdapter adapter = new RequestAdapter(requestQueue);
 
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.setAdapter(adapter);
@@ -50,7 +46,6 @@ public class RequestQueue extends AppCompatActivity {
                 // Open Dialog
                 requestDetails = new Dialog_RequestDetails(requestQueue.get(position), "Customer");
                 requestDetails.show(getSupportFragmentManager(), "Request Details");
-                Toast.makeText(RequestQueue.this, "Item Clicked, Opening dialog", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -67,7 +67,7 @@ public class RegisterRequest extends AppCompatActivity {
                     Toast.makeText(RegisterRequest.this, "Please fill all the boxes", Toast.LENGTH_SHORT).show();
                 } else {
                     Toast.makeText(RegisterRequest.this, "Request Registered", Toast.LENGTH_SHORT).show();
-                    // storeData();
+                    storeData();
                     finish();
                 }
             }

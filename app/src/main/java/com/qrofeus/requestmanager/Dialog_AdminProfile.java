@@ -39,9 +39,7 @@ public class Dialog_AdminProfile extends AppCompatDialogFragment {
                 .setTitle("Profile")
                 .setNeutralButton("Close", new DialogInterface.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
-                    }
+                    public void onClick(DialogInterface dialog, int which) {/*Do Nothing, Closes Dialog*/}
                 })
                 .setPositiveButton("Update", new DialogInterface.OnClickListener() {
                     @Override

@@ -1,10 +1,10 @@
 package com.qrofeus.requestmanager;
 
 public class RequestClass {
-    private String request_id;
-    private String username;
-    private String request_subject;
-    private String request_details;
+    private final String request_id;
+    private final String username;
+    private final String request_subject;
+    private final String request_details;
 
     public RequestClass(String request_id, String username, String request_subject, String request_details) {
         this.request_id = request_id;

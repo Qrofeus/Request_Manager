@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestViewHolder> {
 
-    private ArrayList<RequestClass> arrayList;
+    private final ArrayList<RequestClass> arrayList;
     private OnItemClickListener clickListener;
 
     public RequestAdapter(ArrayList<RequestClass> arrayList) {
@@ -64,11 +64,6 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
                     listener.OnItemClick(getAdapterPosition());
                 }
             });
-        }
-
-        @Override
-        public String toString() {
-            return super.toString();
         }
     }
 }

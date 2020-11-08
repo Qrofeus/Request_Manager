@@ -79,7 +79,7 @@
         android:layout_marginStart="0dp"
         android:layout_marginLeft="0dp"
         android:layout_marginTop="15dp"
-        android:background="#D50000"
+        android:background="#00FF00"
         android:clickable="false"
         android:text="Confirm"
         android:textColor="@android:color/white"

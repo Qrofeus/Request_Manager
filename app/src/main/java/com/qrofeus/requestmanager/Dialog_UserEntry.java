@@ -5,7 +5,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.text.InputType;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -30,8 +29,7 @@ public class Dialog_UserEntry extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_user_entry, null);
+        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_user_entry, null);
 
         final EditText username_view = view.findViewById(R.id.login_username);
         final EditText password_view = view.findViewById(R.id.login_password);

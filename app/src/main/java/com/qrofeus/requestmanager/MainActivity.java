@@ -22,7 +22,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         //Declare usage terms
-        final TextView title = (TextView) findViewById(R.id.loadTitle);
+        final TextView title = findViewById(R.id.loadTitle);
 
         Animation fadeIn = new AlphaAnimation(0, 1);
         fadeIn.setInterpolator(new DecelerateInterpolator());

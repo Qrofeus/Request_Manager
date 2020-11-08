@@ -43,7 +43,7 @@ public class Dashboard_User extends AppCompatActivity implements Dialog_UserEntr
     public void userDetails(String username, String password) {
         //if(database_contains_(username.getText().toString())){
         //get password for provided username
-        if (password.equals("QrofeusPass")) {
+        if (password.equals("password")) {
             startActivity(new Intent(this, Dashboard_Admin.class)
                     .putExtra("Username", username)
                     .putExtra("Password", password));
