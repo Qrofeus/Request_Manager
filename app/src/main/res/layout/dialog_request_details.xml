@@ -1,191 +1,152 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="350dp"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="center">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#00FFFFFF">
+        android:background="#A8DADC"
+        android:paddingHorizontal="15dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="20dp">
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/popup_card"
+        <TextView
+            android:id="@+id/popup_id"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            app:cardElevation="10dp">
+            android:layout_height="35dp"
+            android:gravity="center"
+            android:text="Request ID: --------"
+            android:textColor="@android:color/black"
+            android:textSize="25sp"
+            android:textStyle="bold" />
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="#E63946"
-                android:padding="15dp">
-
-                <TextView
-                    android:id="@+id/popup_id"
-                    android:layout_width="match_parent"
-                    android:layout_height="30dp"
-                    android:gravity="center"
-                    android:text="Request ID: --------"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp" />
-
-                <TextView
-                    android:id="@+id/popup_subject"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_below="@id/popup_id"
-                    android:gravity="start"
-                    android:text="Subject: - - - - - - - - - -"
-                    android:textColor="@android:color/white"
-                    android:textSize="20sp" />
-
-            </RelativeLayout>
-
-        </androidx.cardview.widget.CardView>
-
-        <androidx.cardview.widget.CardView
+        <TextView
+            android:id="@+id/popup_subject"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/popup_card"
+            android:layout_below="@id/popup_id"
+            android:layout_marginTop="15dp"
+            android:gravity="start"
+            android:lines="1"
+            android:maxLines="2"
+            android:text="Subject:"
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/popup_username"
+            android:layout_width="match_parent"
+            android:layout_height="30dp"
+            android:layout_below="@id/popup_subject"
+            android:layout_marginTop="15dp"
+            android:text="Username: "
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/popup_details"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/popup_username"
+            android:layout_marginTop="15dp"
+            android:lines="3"
+            android:maxLines="10"
+            android:text="Details: "
+            android:textColor="@android:color/black"
+            android:textSize="20sp" />
+
+        <androidx.cardview.widget.CardView
+            android:id="@+id/adminCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/popup_details"
+            android:layout_marginTop="20dp"
+            android:visibility="gone"
+            app:cardBackgroundColor="#00FFFFFF"
             app:cardElevation="0dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#1D3557"
-                android:paddingHorizontal="20dp"
-                android:paddingTop="15dp"
-                android:paddingBottom="20dp">
+                android:background="#00FFFFFF"
+                android:padding="0dp">
 
                 <TextView
-                    android:id="@+id/popup_username"
+                    android:id="@+id/popup_phone"
                     android:layout_width="match_parent"
-                    android:layout_height="25dp"
-                    android:text="Username: "
-                    android:textColor="@android:color/white"
+                    android:layout_height="30dp"
+                    android:text="Phone: "
+                    android:textColor="@android:color/black"
                     android:textSize="20sp" />
 
                 <TextView
-                    android:id="@+id/popup_details"
+                    android:id="@+id/popup_mail"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/popup_username"
-                    android:layout_marginTop="10dp"
-                    android:lines="2"
-                    android:maxLines="10"
-                    android:text="Details: "
-                    android:textColor="@android:color/white"
+                    android:layout_height="30dp"
+                    android:layout_below="@id/popup_phone"
+                    android:layout_marginTop="15dp"
+                    android:text="Mail ID: "
+                    android:textColor="@android:color/black"
                     android:textSize="20sp" />
 
-                <androidx.cardview.widget.CardView
-                    android:id="@+id/adminCard"
+                <Button
+                    android:id="@+id/popup_dismissButton"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/popup_details"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/popup_mail"
+                    android:layout_marginHorizontal="5dp"
                     android:layout_marginTop="20dp"
-                    android:visibility="gone"
-                    app:cardBackgroundColor="#00FFFFFF">
+                    android:background="#457B9D"
+                    android:text="DISMISS REQUEST"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
 
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#00FFFFFF"
-                        android:padding="0dp">
+                <Button
+                    android:id="@+id/popup_completeButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/popup_dismissButton"
+                    android:layout_marginHorizontal="5dp"
+                    android:layout_marginTop="20dp"
+                    android:background="#1D3557"
+                    android:text="COMPLETE REQUEST"
+                    android:textColor="@android:color/white"
+                    android:textSize="20sp" />
 
-                        <TextView
-                            android:id="@+id/popup_phone"
-                            android:layout_width="match_parent"
-                            android:layout_height="25dp"
-                            android:text="Phone: "
-                            android:textColor="@android:color/white"
-                            android:textSize="20sp" />
+                <Button
+                    android:id="@+id/popup_cancelButton"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/popup_completeButton"
+                    android:layout_marginStart="5dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginRight="20dp"
+                    android:background="#64DD17"
+                    android:text="Cancel"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
 
-                        <TextView
-                            android:id="@+id/popup_mail"
-                            android:layout_width="match_parent"
-                            android:layout_height="25dp"
-                            android:layout_below="@id/popup_phone"
-                            android:layout_marginTop="5dp"
-                            android:text="Mail ID: "
-                            android:textColor="@android:color/white"
-                            android:textSize="20sp" />
-
-                        <TextView
-                            android:id="@+id/popup_textPriority"
-                            android:layout_width="100dp"
-                            android:layout_height="30dp"
-                            android:layout_below="@id/popup_mail"
-                            android:layout_marginTop="20dp"
-                            android:text="Priority: "
-                            android:textColor="@android:color/white"
-                            android:textSize="20sp" />
-
-                        <Spinner
-                            android:id="@+id/popup_spinner"
-                            android:layout_width="150dp"
-                            android:layout_height="30dp"
-                            android:layout_below="@id/popup_mail"
-                            android:layout_alignParentEnd="true"
-                            android:layout_alignParentRight="true"
-                            android:layout_marginTop="20dp"
-                            android:layout_marginEnd="0dp"
-                            android:layout_marginRight="0dp"
-                            android:layout_toEndOf="@id/popup_textPriority"
-                            android:layout_toRightOf="@id/popup_textPriority" />
-
-                        <Button
-                            android:id="@+id/popup_dismissButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_below="@id/popup_textPriority"
-                            android:layout_marginTop="20dp"
-                            android:background="#FF0000"
-                            android:text="DISMISS REQUEST"
-                            android:textColor="#FFFFFF"
-                            android:textSize="20sp" />
-
-                        <Button
-                            android:id="@+id/popup_completeButton"
-                            android:layout_width="match_parent"
-                            android:layout_height="40dp"
-                            android:layout_below="@id/popup_dismissButton"
-                            android:layout_marginTop="10dp"
-                            android:background="#00FF00"
-                            android:text="COMPLETE REQUEST"
-                            android:textColor="#FFFFFF"
-                            android:textSize="20sp" />
-
-                        <Button
-                            android:id="@+id/popup_cancelButton"
-                            android:layout_width="140dp"
-                            android:layout_height="40dp"
-                            android:layout_below="@id/popup_completeButton"
-                            android:layout_marginTop="20dp"
-                            android:background="@color/disabledButton"
-                            android:text="Cancel"
-                            android:textColor="#FFFFFF"
-                            android:textSize="20sp"
-                            android:visibility="gone" />
-
-                        <Button
-                            android:id="@+id/popup_confirmButton"
-                            android:layout_width="140dp"
-                            android:layout_height="40dp"
-                            android:layout_below="@id/popup_completeButton"
-                            android:layout_marginLeft="20dp"
-                            android:layout_marginTop="20dp"
-                            android:layout_toRightOf="@id/popup_cancelButton"
-                            android:background="@color/disabledButton"
-                            android:text="Confirm"
-                            android:textColor="#FFFFFF"
-                            android:textSize="20sp"
-                            android:visibility="gone" />
-
-                    </RelativeLayout>
-
-                </androidx.cardview.widget.CardView>
+                <Button
+                    android:id="@+id/popup_confirmButton"
+                    android:layout_width="150dp"
+                    android:layout_height="40dp"
+                    android:layout_below="@id/popup_completeButton"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="5dp"
+                    android:layout_marginRight="5dp"
+                    android:background="#FF1919"
+                    android:text="Confirm"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp"
+                    android:visibility="gone" />
 
             </RelativeLayout>
 

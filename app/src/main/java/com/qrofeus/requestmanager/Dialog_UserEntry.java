@@ -29,42 +29,66 @@ public class Dialog_UserEntry extends AppCompatDialogFragment {
     @Override
     public Dialog onCreateDialog(@Nullable Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_user_entry, null);
+        final View view = getActivity().getLayoutInflater().inflate(R.layout.dialog_user_entry, null);
 
-        final EditText username_view = view.findViewById(R.id.login_username);
-        final EditText password_view = view.findViewById(R.id.login_password);
+        final EditText editText1 = view.findViewById(R.id.login_edit1);
+        final EditText editText2 = view.findViewById(R.id.login_edit2);
         final TextView title_view = view.findViewById(R.id.login_title);
-        final Button button_login = view.findViewById(R.id.login_button);
+        final Button posButton = view.findViewById(R.id.login_button);
         final Button button_confirm = view.findViewById(R.id.login_confirm);
 
-        if (button_text.equals("Register")) {
-            password_view.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
-        }
+        switch (button_text) {
+            case "Register":
+                editText2.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+                editText2.setMaxLines(1);
+                break;
+            case "Send":
+                final TextView text1 = view.findViewById(R.id.text1);
+                text1.setText("Mail Subject:");
+                final TextView text2 = view.findViewById(R.id.text2);
+                text2.setText("Mail Body:");
+                editText2.setLines(5);
+                editText2.setMaxLines(7);
 
-        title_view.setText(title_text);
-        button_login.setText(button_text);
-        button_login.setOnClickListener(new View.OnClickListener() {
+                editText1.setHint("Subject");
+                editText2.setHint("Body");
+                break;
+            case "Login":
+                title_view.setText(title_text);
+                editText2.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+                editText2.setMaxLines(1);
+                break;
+        }
+        posButton.setText(button_text);
+        posButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                final String username = username_view.getText().toString();
-                final String password = password_view.getText().toString();
+                final String userSubject = editText1.getText().toString();
+                final String passDetails = editText2.getText().toString();
 
-                if (button_text.equals("Register")) {
-                    // Register User
-                    button_login.setClickable(false);
-                    button_login.setBackgroundColor(getResources().getColor(R.color.disabledButton));
-                    button_confirm.setVisibility(View.VISIBLE);
-                    button_confirm.setClickable(true);
+                switch (button_text) {
+                    case "Register":
+                        // Register User
+                        posButton.setClickable(false);
+                        posButton.setBackgroundColor(getResources().getColor(R.color.disabledButton));
+                        button_confirm.setVisibility(View.VISIBLE);
+                        button_confirm.setClickable(true);
 
-                    button_confirm.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            entryInterface.userDetails(username, password);
-                        }
-                    });
-                } else {
-                    // Login
-                    entryInterface.userDetails(username, password);
+                        button_confirm.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                entryInterface.userDetails(userSubject, passDetails);
+                            }
+                        });
+                        break;
+                    case "Send":
+                        //Contact Us
+                        entryInterface.sendMail(userSubject, passDetails);
+                        break;
+                    case "Login":
+                        // Login
+                        entryInterface.userDetails(userSubject, passDetails);
+                        break;
                 }
             }
         });
@@ -85,5 +109,7 @@ public class Dialog_UserEntry extends AppCompatDialogFragment {
 
     public interface Interface_UserEntry {
         void userDetails(String username, String password);
+
+        void sendMail(String mailSubject, String mailDetails);
     }
 }

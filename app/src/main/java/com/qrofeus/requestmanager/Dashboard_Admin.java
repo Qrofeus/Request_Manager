@@ -43,7 +43,7 @@ public class Dashboard_Admin extends AppCompatActivity implements Dialog_Confirm
 
     @Override
     public void onBackPressed() {
-        Dialog_Confirmation dialogClass = new Dialog_Confirmation("Closing Admin Dashboard", "Confirm Logout");
+        Dialog_Confirmation dialogClass = new Dialog_Confirmation("Closing Admin Dashboard");
         dialogClass.show(getSupportFragmentManager(), "Confirm Logout");
     }
 
@@ -80,5 +80,9 @@ public class Dashboard_Admin extends AppCompatActivity implements Dialog_Confirm
         //Add User to database
         Toast.makeText(this, "New Admin User added", Toast.LENGTH_SHORT).show();
         entry.dismiss();
+    }
+
+    @Override
+    public void sendMail(String mailSubject, String mailDetails) {
     }
 }

@@ -14,7 +14,7 @@ public class RequestClass {
     }
 
     public String getRequest_id() {
-        return "Request ID:" + request_id;
+        return "Request ID: " + request_id;
     }
 
     public String getUsername() {
