@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">Request Manager</string>
-    <string name="make_a_request">Make a Request</string>
     <string name="request_queue">Request Queue</string>
 
     <string name="error_message">Invalid Username/Password. Please Try Again.</string>
@@ -10,6 +9,9 @@
     <string name="admin">Admin</string>
     <string name="contact_us">ContactUs</string>
     <string name="login">Login</string>
+    <string name="background_image">Background Image</string>
+    <string name="register_as_user">Register User</string>
+    <string name="login_as_user">User Login</string>
 
     <string-array name="priorities">
         <item>Low</item>

@@ -13,12 +13,12 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:cardBackgroundColor="#304FFE"
         app:cardElevation="0dp">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#246EB9"
             android:padding="15dp">
 
             <TextView
@@ -88,7 +88,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/card_back">
+                            android:background="@drawable/admin_dashboard_card">
 
                             <ImageView
                                 android:id="@+id/imageView1"
@@ -96,7 +96,7 @@
                                 android:layout_height="130dp"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="15dp"
-                                android:src="@drawable/ic_list"/>
+                                android:src="@drawable/dashboard_list" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -115,7 +115,7 @@
                     </androidx.cardview.widget.CardView>
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/register_user"
+                        android:id="@+id/register_admin"
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="1"
@@ -126,7 +126,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/card_back">
+                            android:background="@drawable/admin_dashboard_card">
 
                             <ImageView
                                 android:id="@+id/imageView2"
@@ -134,7 +134,7 @@
                                 android:layout_height="130dp"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="15dp"
-                                android:src="@drawable/ic_add_user"/>
+                                android:src="@drawable/icon_add_admin" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -182,7 +182,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/card_back">
+                            android:background="@drawable/admin_dashboard_card">
 
                             <ImageView
                                 android:id="@+id/imageView3"
@@ -190,7 +190,7 @@
                                 android:layout_height="130dp"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="15dp"
-                                android:src="@drawable/ic_profile"/>
+                                android:src="@drawable/admin_dashboard_profile" />
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -220,7 +220,7 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:background="@drawable/card_back">
+                            android:background="@drawable/admin_dashboard_card">
 
                             <ImageView
                                 android:id="@+id/imageView4"
@@ -228,7 +228,7 @@
                                 android:layout_height="130dp"
                                 android:layout_centerHorizontal="true"
                                 android:layout_marginTop="15dp"
-                                android:src="@drawable/ic_logout"/>
+                                android:src="@drawable/admin_dashboard_logout" />
 
                             <TextView
                                 android:layout_width="match_parent"

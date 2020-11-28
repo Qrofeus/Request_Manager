@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestViewHolder> {
 
-    private final ArrayList<RequestClass> arrayList;
+    private ArrayList<RequestClass> arrayList;
     private OnItemClickListener clickListener;
 
     public RequestAdapter(ArrayList<RequestClass> arrayList) {
@@ -21,6 +21,11 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         clickListener = listener;
+    }
+
+    public void filter(ArrayList<RequestClass> newList) {
+        arrayList = newList;
+        notifyDataSetChanged();
     }
 
     @NonNull

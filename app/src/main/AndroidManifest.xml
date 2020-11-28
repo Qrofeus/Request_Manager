@@ -9,10 +9,14 @@
         android:roundIcon="@mipmap/icon_app_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".RequestQueue"></activity>
+        <activity android:name=".LoginUser" />
+        <activity android:name=".Account_Profile" />
+        <activity android:name=".Dashboard_User" />
+        <activity android:name=".Register_Activity" />
+        <activity android:name=".RequestQueue" />
         <activity android:name=".Dashboard_Admin" />
         <activity android:name=".RegisterRequest" />
-        <activity android:name=".Dashboard_User" />
+        <activity android:name=".Dashboard_Main" />
         <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

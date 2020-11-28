@@ -3,69 +3,85 @@ package com.qrofeus.requestmanager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.view.animation.DecelerateInterpolator;
-import android.widget.Toast;
+import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.cardview.widget.CardView;
 
-public class Dashboard_User extends AppCompatActivity implements Dialog_UserEntry.Interface_UserEntry {
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+public class Dashboard_User extends AppCompatActivity implements Dialog_Confirmation.Interface_DialogResults {
+
+    private String username;
+    private String mail;
+    private String phone;
+    private String dataKey;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dashboard);
+        setContentView(R.layout.dashboard_user);
 
-        Animation fadeIn = new AlphaAnimation(0, 1);
-        fadeIn.setInterpolator(new DecelerateInterpolator());
-        fadeIn.setDuration(2000);
+        dataKey = getIntent().getExtras().getString("Database Key");
 
-        final CardView titleCard = findViewById(R.id.title_card);
-        titleCard.setAnimation(fadeIn);
+        // Get User details
+        FirebaseDatabase.getInstance().getReference().child("Accounts").child(dataKey).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                UserAccount account = snapshot.getValue(UserAccount.class);
+                username = account.getUsername();
+                mail = account.getMailID();
+                phone = account.getPhone_number();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+
+        // Set page title
+        TextView title = findViewById(R.id.user_title);
+        title.setText(username);
     }
 
-    public void requestList(View view) {
-        startActivity(new Intent(this, RequestQueue.class).putExtra("User", "Customer"));
+    public void displayQueue(View view) {
+        startActivity(new Intent(this, RequestQueue.class)
+                .putExtra("User", "Customer")
+                .putExtra("Username", username));
+    }
+
+    public void userProfile(View view) {
+        startActivity(new Intent(this, Account_Profile.class)
+                .putExtra("Database Key", dataKey));
+        finish();
     }
 
     public void makeRequest(View view) {
-        startActivity(new Intent(this, RegisterRequest.class));
+        startActivity(new Intent(this, RegisterRequest.class)
+                .putExtra("User", username)
+                .putExtra("Mail", mail)
+                .putExtra("Phone", phone));
     }
 
-    public void adminLogin(View view) {
-        Dialog_UserEntry entry = new Dialog_UserEntry("Login as Admin User", "Login");
-        entry.show(getSupportFragmentManager(), "Login User");
-    }
-
-    public void contactUs(View view) {
-        Dialog_UserEntry mail = new Dialog_UserEntry("Contact Us", "Send");
-        mail.show(getSupportFragmentManager(), "Contact Us");
-    }
-
-    @Override
-    public void userDetails(String username, String password) {
-        //if(database_contains_(username.getText().toString())){
-        //get password for provided username
-        if (password.equals("password")) {
-            startActivity(new Intent(this, Dashboard_Admin.class)
-                    .putExtra("Username", username)
-                    .putExtra("Password", password));
-            finish();
-        } else {
-            Toast.makeText(this, "Invalid Username / Password", Toast.LENGTH_SHORT).show();
-        }
+    public void prevRequests(View view) {
+        startActivity(new Intent(this, RequestQueue.class)
+                .putExtra("User", "Customer")
+                .putExtra("Username", "user 1"));
     }
 
     @Override
-    public void sendMail(String mailSubject, String mailDetails) {
-        // Send Mail to admin
-        final Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setType("message/rfc822");
-        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"pday3683@gmail.com"});
-        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, mailSubject);
-        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, mailDetails);
-        startActivity(Intent.createChooser(emailIntent, "Complete action using..."));
+    public void onBackPressed() {
+        Dialog_Confirmation dialogClass = new Dialog_Confirmation("Confirm Logout");
+        dialogClass.show(getSupportFragmentManager(), "Confirm Logout");
+    }
+
+    @Override
+    public void confirmDialog() {
+        startActivity(new Intent(this, Dashboard_Main.class));
+        finish();
     }
 }

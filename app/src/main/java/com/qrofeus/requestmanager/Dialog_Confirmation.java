@@ -12,16 +12,10 @@ import androidx.appcompat.app.AppCompatDialogFragment;
 
 public class Dialog_Confirmation extends AppCompatDialogFragment {
 
-    private String message;
     private final String title;
     private Interface_DialogResults results;
 
     public Dialog_Confirmation(String title) {
-        this.title = title;
-    }
-
-    public Dialog_Confirmation(String title, String message) {
-        this.message = message;
         this.title = title;
     }
 
@@ -42,9 +36,6 @@ public class Dialog_Confirmation extends AppCompatDialogFragment {
                     public void onClick(DialogInterface dialog, int which) {
                     }
                 });
-        if (message != null) {
-            builder.setMessage(message);
-        }
         return builder.create();
     }
 

@@ -19,7 +19,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.start_splash_screen);
 
         //Declare usage terms
         final TextView title = findViewById(R.id.loadTitle);
@@ -49,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                startActivity(new Intent(MainActivity.this, Dashboard_User.class));
+                startActivity(new Intent(MainActivity.this, Dashboard_Main.class));
                 finish();
             }
         }, 4000);
