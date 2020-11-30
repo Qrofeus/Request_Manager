@@ -23,7 +23,7 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
         clickListener = listener;
     }
 
-    public void filter(ArrayList<RequestClass> newList) {
+    public void updateList(ArrayList<RequestClass> newList) {
         arrayList = newList;
         notifyDataSetChanged();
     }

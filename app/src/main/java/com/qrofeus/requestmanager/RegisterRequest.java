@@ -50,7 +50,7 @@ public class RegisterRequest extends AppCompatActivity {
         // Validate Input
         email_address = mail_id.getText().toString();
         phone_number = phone.getText().toString();
-        if (email_address.isEmpty() || phone_number.isEmpty()) {
+        if (email_address.isEmpty() && phone_number.isEmpty()) {
             Toast.makeText(this, "Either email-address or phone-number is required", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -90,7 +90,8 @@ public class RegisterRequest extends AppCompatActivity {
 
         String details_text = details.getText().toString();
         String ReqID = reference.push().getKey();
-        RequestClass newRequest = new RequestClass(ReqID, username_text, subject_text, details_text, email_address, phone_number, request_priority);
+        RequestClass newRequest = new RequestClass(ReqID, username_text, subject_text, details_text, email_address, phone_number);
+        assert ReqID != null;
         reference.child(ReqID).setValue(newRequest);
 
         Toast.makeText(this, "Request Registered", Toast.LENGTH_SHORT).show();

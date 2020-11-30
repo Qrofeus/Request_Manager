@@ -35,10 +35,10 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
         final TextView reqUsername = view.findViewById(R.id.popup_username);
         final TextView reqDetails = view.findViewById(R.id.popup_details);
 
-        reqID.setText(request.getRequest_id());
-        reqUsername.setText(request.getUsername());
-        reqSubject.setText(request.getRequest_subject());
-        reqDetails.setText(request.getRequest_details());
+        reqID.setText(String.format("RID: %s", request.getRequest_id()));
+        reqUsername.setText(String.format("Username: %s", request.getUsername()));
+        reqSubject.setText(String.format("Subject: %s", request.getRequest_subject()));
+        reqDetails.setText(String.format("Details: %s", request.getRequest_details()));
 
         if (user.equals("Admin")) {
 
@@ -47,14 +47,20 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
             final Button confirm = view.findViewById(R.id.popup_confirmButton);
             final Button cancel = view.findViewById(R.id.popup_cancelButton);
 
+            final TextView phone = view.findViewById(R.id.popup_phone);
+            final TextView mail = view.findViewById(R.id.popup_mail);
+
             final CardView reqAdminCard = view.findViewById(R.id.adminCard);
             reqAdminCard.setVisibility(View.VISIBLE);
+
+            phone.setText(String.format("Phone: %s", request.getPhone()));
+            mail.setText(String.format("Mail: %s", request.getEmail()));
 
             //Admin functionality
             dismiss.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    dismiss.setText("Confirm Dismissal");
+                    dismiss.setText(R.string.confirm_dismissal);
                     complete.setClickable(false);
                     confirm.setVisibility(View.VISIBLE);
                     confirm.setClickable(true);
@@ -66,7 +72,7 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
             complete.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    complete.setText("Confirm Completion");
+                    complete.setText(R.string.confirm_completion);
                     dismiss.setClickable(false);
                     confirm.setVisibility(View.VISIBLE);
                     confirm.setClickable(true);

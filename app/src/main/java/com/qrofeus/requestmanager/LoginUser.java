@@ -19,7 +19,11 @@ public class LoginUser extends AppCompatActivity {
 
     private EditText username;
     private EditText password;
+
     private String use;
+    private String dataKey;
+
+    private UserAccount curAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,14 +48,16 @@ public class LoginUser extends AppCompatActivity {
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Accounts");
 
         // Check if username exists
-        final String[] dataKey = {""};
+        dataKey = "";
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
+                UserAccount account;
                 for (DataSnapshot snap : snapshot.getChildren()) {
-                    UserAccount account = snap.getValue(UserAccount.class);
+                    account = (UserAccount) snap.getValue(UserAccount.class);
+                    assert account != null;
                     if (account.getUsername().equals(username_text)) {
-                        dataKey[0] = snap.getKey();
+                        dataKey = snap.getKey();
                         break;
                     }
                 }
@@ -63,16 +69,18 @@ public class LoginUser extends AppCompatActivity {
             }
         });
 
-        if (dataKey[0].equals("")) {
+        if (dataKey.equals("")) {
             Toast.makeText(this, "Username does not exist", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        final UserAccount[] account = new UserAccount[1];
-        reference.child(dataKey[0]).addValueEventListener(new ValueEventListener() {
+        curAccount = new UserAccount();
+        reference.child(dataKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                account[0] = snapshot.getValue(UserAccount.class);
+                if (snapshot.exists()) {
+                    curAccount = (UserAccount) snapshot.getValue(UserAccount.class);
+                }
             }
 
             @Override
@@ -82,13 +90,14 @@ public class LoginUser extends AppCompatActivity {
         });
 
         // Check User Type
-        if (!(use.equals("Admin") && account[0].getType().equals("Admin")) || !(use.equals("Customer") && account[0].getType().equals("Customer"))) {
+        if (!(use.equals("Admin") && curAccount.getType().equals("Admin")) || !(use.equals("Customer")
+                && curAccount.getType().equals("Customer"))) {
             Toast.makeText(this, "No user found", Toast.LENGTH_SHORT).show();
             return;
         }
 
         // Check password
-        if (!password_text.equals(account[0].getPassword())) {
+        if (!password_text.equals(curAccount.getPassword())) {
             Toast.makeText(this, "Incorrect Password", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -96,14 +105,14 @@ public class LoginUser extends AppCompatActivity {
         // Start Activity based on usage
         if (use.equals("Admin")) {
             startActivity(new Intent(this, Dashboard_Admin.class)
-                    .putExtra("Database Key", dataKey[0])
-                    .putExtra("Username", account[0].getUsername()));
+                    .putExtra("Database Key", dataKey)
+                    .putExtra("Username", curAccount.getUsername()));
             finish();
         }
 
         if (use.equals("Customer")) {
             startActivity(new Intent(this, Dashboard_User.class)
-                    .putExtra("Database Key", dataKey[0]));
+                    .putExtra("Database Key", dataKey));
             finish();
         }
     }

@@ -46,6 +46,7 @@
         android:ems="10"
         android:fontFamily="@font/baloo"
         android:hint="@string/username"
+        android:importantForAutofill="no"
         android:inputType="textPersonName"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
@@ -79,6 +80,7 @@
         android:ems="10"
         android:fontFamily="@font/baloo"
         android:hint="@string/password"
+        android:importantForAutofill="no"
         android:inputType="textPassword"
         android:textColor="#FFFFFF"
         android:textSize="24sp"
@@ -108,7 +110,7 @@
             android:layout_height="match_parent"
             android:fontFamily="@font/roboto_black"
             android:gravity="center"
-            android:text="SUBMIT"
+            android:text="@string/submit"
             android:textColor="@android:color/white"
             android:textSize="25sp" />
 

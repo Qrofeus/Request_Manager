@@ -31,7 +31,6 @@
                 android:fontFamily="@font/lemon"
                 android:gravity="center_vertical"
                 android:maxLines="1"
-                android:text="Username from User"
                 android:textColor="@android:color/white"
                 android:textSize="40sp" />
 
@@ -43,7 +42,7 @@
                 android:layout_marginLeft="15dp"
                 android:fontFamily="@font/roboto_black"
                 android:gravity="center_vertical"
-                android:text="User Login"
+                android:text="@string/login_as_user"
                 android:textColor="@android:color/white"
                 android:textSize="30sp" />
 
@@ -94,6 +93,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
+                    android:contentDescription="@string/background_image"
                     android:src="@drawable/user_dashboard_register_request" />
 
                 <TextView
@@ -108,7 +108,7 @@
                     android:layout_toRightOf="@id/imageView1"
                     android:fontFamily="@font/roboto_black"
                     android:gravity="center_horizontal"
-                    android:text="Make a Request"
+                    android:text="@string/register_request"
                     android:textColor="@android:color/black"
                     android:textSize="30sp" />
 
@@ -137,6 +137,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp"
+                    android:contentDescription="@string/background_image"
                     android:src="@drawable/dashboard_list" />
 
                 <TextView
@@ -151,7 +152,7 @@
                     android:layout_toLeftOf="@id/imageView2"
                     android:fontFamily="@font/roboto_black"
                     android:gravity="center_horizontal"
-                    android:text="Request Queue"
+                    android:text="@string/request_queue"
                     android:textColor="@android:color/black"
                     android:textSize="30sp" />
 
@@ -178,6 +179,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginStart="20dp"
                     android:layout_marginLeft="20dp"
+                    android:contentDescription="@string/background_image"
                     android:src="@drawable/icon_filtered_list" />
 
                 <TextView
@@ -192,7 +194,7 @@
                     android:layout_toRightOf="@id/imageView3"
                     android:fontFamily="@font/roboto_black"
                     android:gravity="center_horizontal"
-                    android:text="My Previous Requests"
+                    android:text="@string/my_previous_requests"
                     android:textColor="@android:color/black"
                     android:textSize="30sp" />
 

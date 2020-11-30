@@ -1,18 +1,27 @@
 package com.qrofeus.requestmanager;
 
 public class UserAccount {
-    private final String username;
-    private final String password;
-    private final String mailID;
-    private final String phone_number;
-    private final String type;
+    private String user_id;
+    private String username;
+    private String password;
+    private String mailID;
+    private String phone_number;
+    private String type;
 
-    public UserAccount(String username, String password, String mailID, String phone_number, String type) {
+    public UserAccount(String user_id, String username, String password, String mailID, String phone_number, String type) {
+        this.user_id = user_id;
         this.username = username;
         this.password = password;
         this.mailID = mailID;
         this.phone_number = phone_number;
         this.type = type;
+    }
+
+    public UserAccount() {
+    }
+
+    public String getUser_id() {
+        return user_id;
     }
 
     public String getType() {

@@ -31,18 +31,21 @@ public class Account_Profile extends AppCompatActivity {
     private EditText mail_edit;
     private EditText phone_edit;
 
+    private UserAccount account;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_profile);
 
+        account = new UserAccount();
         dataKey = getIntent().getExtras().getString("Database Key");
 
         // Get User details
         FirebaseDatabase.getInstance().getReference().child("Accounts").child(dataKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UserAccount account = snapshot.getValue(UserAccount.class);
+                account = snapshot.getValue(UserAccount.class);
                 username = account.getUsername();
                 password = account.getPassword();
                 mail = account.getMailID();
@@ -80,7 +83,7 @@ public class Account_Profile extends AppCompatActivity {
                 mail = newMail;
                 phone = newPhone;
 
-                UserAccount account = new UserAccount(username, password, mail, phone, type);
+                UserAccount account = new UserAccount(dataKey, username, password, mail, phone, type);
                 FirebaseDatabase.getInstance().getReference().child("Accounts").child(dataKey).setValue(account);
 
                 Toast.makeText(this, "User profile updated", Toast.LENGTH_SHORT).show();

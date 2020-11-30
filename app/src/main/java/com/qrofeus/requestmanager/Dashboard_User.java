@@ -20,8 +20,11 @@ public class Dashboard_User extends AppCompatActivity implements Dialog_Confirma
     private String phone;
     private String dataKey;
 
+    private UserAccount account;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        account = new UserAccount();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_user);
 
@@ -31,10 +34,13 @@ public class Dashboard_User extends AppCompatActivity implements Dialog_Confirma
         FirebaseDatabase.getInstance().getReference().child("Accounts").child(dataKey).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                UserAccount account = snapshot.getValue(UserAccount.class);
-                username = account.getUsername();
-                mail = account.getMailID();
-                phone = account.getPhone_number();
+                if (snapshot.exists()) {
+                    account = snapshot.getValue(UserAccount.class);
+                    assert account != null;
+                    username = account.getUsername();
+                    mail = account.getMailID();
+                    phone = account.getPhone_number();
+                }
             }
 
             @Override

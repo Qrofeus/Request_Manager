@@ -18,6 +18,8 @@ public class Dashboard_Main extends AppCompatActivity implements Dialog_Mail.Int
         startActivity(new Intent(this, RequestQueue.class)
                 .putExtra("User", "Customer")
                 .putExtra("Username", ""));
+
+        //startActivity(new Intent(this, RequestList.class));
     }
 
     public void makeRequest(View view) {
@@ -42,7 +44,6 @@ public class Dashboard_Main extends AppCompatActivity implements Dialog_Mail.Int
     }
 
     public void userLogin(View view) {
-        // ToDo Start Login activity
         startActivity(new Intent(this, LoginUser.class)
                 .putExtra("use", "Customer"));
         finish();

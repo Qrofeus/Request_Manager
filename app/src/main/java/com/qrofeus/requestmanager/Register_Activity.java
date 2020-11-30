@@ -21,6 +21,8 @@ public class Register_Activity extends AppCompatActivity {
     private String use;
     private String text_username;
 
+    private boolean exists = false;
+
     private EditText username;
     private EditText password;
     private EditText phone;
@@ -34,7 +36,7 @@ public class Register_Activity extends AppCompatActivity {
         use = getIntent().getExtras().get("use").toString();
 
         username = findViewById(R.id.register_username);
-        password = findViewById(R.id.register_password);
+        password = findViewById(R.id.register_pass);
         phone = findViewById(R.id.register_phone);
         mail = findViewById(R.id.register_mail);
     }
@@ -51,15 +53,18 @@ public class Register_Activity extends AppCompatActivity {
             return;
         }
 
-        if (checkDuplicate()) {
+        checkDuplicate();
+        if (exists) {
             Toast.makeText(this, "Enter unique username", Toast.LENGTH_SHORT).show();
             return;
         }
 
         if (verifyInput(text_mail, text_phone)) {
             DatabaseReference reference = FirebaseDatabase.getInstance().getReference().child("Accounts");
-            UserAccount account = new UserAccount(text_username, text_password, text_mail, text_phone, use);
-            reference.push().setValue(account);
+            String user_key = reference.push().getKey();
+            UserAccount account = new UserAccount(user_key, text_username, text_password, text_mail, text_phone, use);
+            assert user_key != null;
+            reference.child(user_key).setValue(account);
             Toast.makeText(this, "Account Created", Toast.LENGTH_SHORT).show();
             finish();
         } else {
@@ -67,15 +72,15 @@ public class Register_Activity extends AppCompatActivity {
         }
     }
 
-    private boolean checkDuplicate() {
-        final boolean[] exists = {false};
+    private void checkDuplicate() {
         FirebaseDatabase.getInstance().getReference().child("Account").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot snap : snapshot.getChildren()) {
                     UserAccount account = snap.getValue(UserAccount.class);
+                    assert account != null;
                     if (text_username.equals(account.getUsername()))
-                        exists[0] = true;
+                        exists = true;
                 }
             }
 
@@ -84,7 +89,6 @@ public class Register_Activity extends AppCompatActivity {
 
             }
         });
-        return exists[0];
     }
 
     private boolean verifyInput(String mail, String phone) {
