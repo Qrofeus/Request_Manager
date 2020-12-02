@@ -9,6 +9,10 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class Dashboard_Admin extends AppCompatActivity implements Dialog_Confirmation.Interface_DialogResults {
 
+    private String username;
+    private String password;
+    private String mail;
+    private String phone;
     private String dataKey;
 
     @Override
@@ -16,11 +20,16 @@ public class Dashboard_Admin extends AppCompatActivity implements Dialog_Confirm
         super.onCreate(savedInstanceState);
         setContentView(R.layout.dashboard_admin);
 
+        // Get User Details
         dataKey = getIntent().getExtras().getString("Database Key");
-        String username = getIntent().getExtras().getString("Username");
+        username = getIntent().getExtras().getString("Username");
+        password = getIntent().getExtras().getString("Password");
+        mail = getIntent().getExtras().getString("Mail ID");
+        phone = getIntent().getExtras().getString("Phone");
 
-        TextView textUsername = findViewById(R.id.username_text);
-        textUsername.setText(username);
+        // Set page title
+        TextView title = findViewById(R.id.username_text);
+        title.setText(username);
     }
 
     public void registerAdmin(View view) {
@@ -30,7 +39,12 @@ public class Dashboard_Admin extends AppCompatActivity implements Dialog_Confirm
 
     public void profile(View view) {
         startActivity(new Intent(this, Account_Profile.class)
-                .putExtra("Database Key", dataKey));
+                .putExtra("use", "Admin")
+                .putExtra("Database Key", dataKey)
+                .putExtra("Username", username)
+                .putExtra("Password", password)
+                .putExtra("Mail ID", mail)
+                .putExtra("Phone", phone));
         finish();
     }
 

@@ -177,7 +177,7 @@
         android:layout_marginBottom="50dp"
         android:background="#2979FF"
         android:gravity="center_horizontal|center_vertical"
-        android:onClick="registerAccount"
+        android:onClick="onRegisterClick"
         android:text="@string/register_user"
         android:textColor="#FFFFFF"
         android:textSize="25sp"

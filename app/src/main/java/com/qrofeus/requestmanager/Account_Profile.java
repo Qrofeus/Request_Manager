@@ -6,13 +6,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
 
 import java.util.regex.Pattern;
 
@@ -22,7 +18,7 @@ public class Account_Profile extends AppCompatActivity {
     private String password;
     private String mail;
     private String phone;
-    private String type;
+    private String use;
 
     private String dataKey;
 
@@ -31,33 +27,18 @@ public class Account_Profile extends AppCompatActivity {
     private EditText mail_edit;
     private EditText phone_edit;
 
-    private UserAccount account;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.account_profile);
 
-        account = new UserAccount();
+        use = getIntent().getExtras().getString("use");
+
         dataKey = getIntent().getExtras().getString("Database Key");
-
-        // Get User details
-        FirebaseDatabase.getInstance().getReference().child("Accounts").child(dataKey).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                account = snapshot.getValue(UserAccount.class);
-                username = account.getUsername();
-                password = account.getPassword();
-                mail = account.getMailID();
-                phone = account.getPhone_number();
-                type = account.getType();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
+        username = getIntent().getExtras().getString("Username");
+        password = getIntent().getExtras().getString("Password");
+        mail = getIntent().getExtras().getString("Mail ID");
+        phone = getIntent().getExtras().getString("Phone");
 
         username_edit = findViewById(R.id.admin_user);
         password_edit = findViewById(R.id.admin_pass);
@@ -83,7 +64,7 @@ public class Account_Profile extends AppCompatActivity {
                 mail = newMail;
                 phone = newPhone;
 
-                UserAccount account = new UserAccount(dataKey, username, password, mail, phone, type);
+                UserAccount account = new UserAccount(dataKey, username, password, mail, phone);
                 FirebaseDatabase.getInstance().getReference().child("Accounts").child(dataKey).setValue(account);
 
                 Toast.makeText(this, "User profile updated", Toast.LENGTH_SHORT).show();
@@ -105,14 +86,18 @@ public class Account_Profile extends AppCompatActivity {
     @Override
     public void onBackPressed() {
         super.onBackPressed();
-        if (type.equals("Admin")) {
+        if (use.equals("Admin")) {
             startActivity(new Intent(this, Dashboard_Admin.class)
                     .putExtra("Username", username)
                     .putExtra("Database Key", dataKey));
             finish();
-        } else if (type.equals("Customer")) {
+        } else if (use.equals("Customer")) {
             startActivity(new Intent(this, Dashboard_User.class)
-                    .putExtra("Database Key", dataKey));
+                    .putExtra("Database Key", dataKey)
+                    .putExtra("Username", username)
+                    .putExtra("Password", password)
+                    .putExtra("Mail ID", mail)
+                    .putExtra("Phone", phone));
         }
     }
 }

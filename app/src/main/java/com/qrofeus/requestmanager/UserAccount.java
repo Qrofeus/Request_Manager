@@ -6,15 +6,13 @@ public class UserAccount {
     private String password;
     private String mailID;
     private String phone_number;
-    private String type;
 
-    public UserAccount(String user_id, String username, String password, String mailID, String phone_number, String type) {
+    public UserAccount(String user_id, String username, String password, String mailID, String phone_number) {
         this.user_id = user_id;
         this.username = username;
         this.password = password;
         this.mailID = mailID;
         this.phone_number = phone_number;
-        this.type = type;
     }
 
     public UserAccount() {
@@ -22,10 +20,6 @@ public class UserAccount {
 
     public String getUser_id() {
         return user_id;
-    }
-
-    public String getType() {
-        return type;
     }
 
     public String getUsername() {

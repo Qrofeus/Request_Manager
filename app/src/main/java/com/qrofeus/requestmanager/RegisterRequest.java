@@ -11,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Random;
 import java.util.regex.Pattern;
 
 public class RegisterRequest extends AppCompatActivity {
@@ -19,6 +20,8 @@ public class RegisterRequest extends AppCompatActivity {
     private String subject_text;
     private String email_address;
     private String phone_number;
+
+    private DatabaseReference reference;
 
     private Spinner priority;
     private EditText username;
@@ -46,63 +49,77 @@ public class RegisterRequest extends AppCompatActivity {
         }
     }
 
-    public void onSubmit(View view) {
+    public void onSubmitClick(View view) {
         // Validate Input
         email_address = mail_id.getText().toString();
         phone_number = phone.getText().toString();
-        if (email_address.isEmpty() && phone_number.isEmpty()) {
-            Toast.makeText(this, "Either email-address or phone-number is required", Toast.LENGTH_SHORT).show();
-            return;
-        }
+        if (verifyMail(email_address) || verifyPhone(phone_number)) {
+            username_text = username.getText().toString().trim();
+            subject_text = subject.getText().toString();
+            if (username_text.isEmpty() || subject_text.isEmpty()) {
+                Toast.makeText(RegisterRequest.this, "Username/Subject field is empty", Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-        if (!verifyInput(email_address, phone_number)) {
-            Toast.makeText(RegisterRequest.this, "Invalid Format Email-Address/Phone-Number", Toast.LENGTH_SHORT).show();
-            return;
+            storeData();
         }
-
-        username_text = username.getText().toString();
-        subject_text = subject.getText().toString();
-        if (username_text.isEmpty() || subject_text.isEmpty()) {
-            Toast.makeText(RegisterRequest.this, "Username/Subject field is empty", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        storeData();
     }
 
     private void storeData() {
-        String request_priority = priority.getSelectedItem().toString();
-        // Create Database Reference
-        DatabaseReference reference;
-        switch (request_priority) {
-            case "Low":
-                reference = FirebaseDatabase.getInstance().getReference().child("Low");
-                break;
-            case "Medium":
-                reference = FirebaseDatabase.getInstance().getReference().child("Medium");
-                break;
-            case "High":
-                reference = FirebaseDatabase.getInstance().getReference().child("High");
-                break;
-            default:
-                reference = FirebaseDatabase.getInstance().getReference();
-        }
+        changeReference();
 
+        // Generate Random Request ID
+        String reqID = hexCode();
         String details_text = details.getText().toString();
-        String ReqID = reference.push().getKey();
-        RequestClass newRequest = new RequestClass(ReqID, username_text, subject_text, details_text, email_address, phone_number);
-        assert ReqID != null;
-        reference.child(ReqID).setValue(newRequest);
+
+        // Create data structure for storage
+        RequestClass newRequest = new RequestClass(reqID, username_text, subject_text, details_text, email_address, phone_number);
+        reference.child(reqID).setValue(newRequest);
 
         Toast.makeText(this, "Request Registered", Toast.LENGTH_SHORT).show();
         finish();
     }
 
-    private boolean verifyInput(String mail, String phone) {
-        Pattern patternMail = Pattern.compile("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$");
-        Pattern patternPhone = Pattern.compile("[789][0-9]{9}");
+    private boolean verifyMail(String mail) {
+        if (mail.isEmpty()) {
+            mail_id.requestFocus();
+            return false;
+        }
 
-        return patternMail.matcher(mail).matches() && patternPhone.matcher(phone).matches();
+        Pattern patternMail = Pattern.compile("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$");
+        return patternMail.matcher(mail).matches();
+    }
+
+    private boolean verifyPhone(String phoneNo) {
+        if (phoneNo.isEmpty()) {
+            phone.requestFocus();
+            return false;
+        }
+        Pattern patternPhone = Pattern.compile("[789][0-9]{9}");
+        return patternPhone.matcher(phoneNo).matches();
+    }
+
+    private void changeReference() {
+        String request_priority = priority.getSelectedItem().toString();
+        // Create Database Reference
+        switch (request_priority) {
+            case "Low":
+                reference = FirebaseDatabase.getInstance().getReference("Low");
+                break;
+            case "Medium":
+                reference = FirebaseDatabase.getInstance().getReference("Medium");
+                break;
+            case "High":
+                reference = FirebaseDatabase.getInstance().getReference("High");
+                break;
+            default:
+                reference = FirebaseDatabase.getInstance().getReference();
+        }
+    }
+
+    private String hexCode() {
+        Random random = new Random();
+        return Integer.toHexString(random.nextInt()).toLowerCase();
     }
 
     @Override

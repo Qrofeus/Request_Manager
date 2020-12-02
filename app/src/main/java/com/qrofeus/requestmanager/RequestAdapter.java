@@ -39,8 +39,8 @@ public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestV
     public void onBindViewHolder(@NonNull RequestViewHolder holder, int position) {
         RequestClass request = arrayList.get(position);
 
-        holder.cardID.setText(request.getRequest_id());
-        holder.cardSubject.setText(request.getRequest_subject());
+        holder.cardID.setText(String.format("RID: %s", request.getRequest_id().toUpperCase()));
+        holder.cardSubject.setText(String.format("Subject: %s", request.getRequest_subject()));
     }
 
     @Override

@@ -35,7 +35,7 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
         final TextView reqUsername = view.findViewById(R.id.popup_username);
         final TextView reqDetails = view.findViewById(R.id.popup_details);
 
-        reqID.setText(String.format("RID: %s", request.getRequest_id()));
+        reqID.setText(String.format("RID: %s", request.getRequest_id().toUpperCase()));
         reqUsername.setText(String.format("Username: %s", request.getUsername()));
         reqSubject.setText(String.format("Subject: %s", request.getRequest_subject()));
         reqDetails.setText(String.format("Details: %s", request.getRequest_details()));

@@ -17,7 +17,7 @@
     <string name="register_request">Register Request</string>
     <string name="subject">Subject</string>
     <string name="details">Details</string>
-    <string name="contact_details">Contact Details:</string>
+    <string name="contact_details">Contact Details: Atleast One</string>
     <string name="mail_id">Mail ID</string>
     <string name="phone_number">Phone Number</string>
     <string name="priority">Priority:</string>
