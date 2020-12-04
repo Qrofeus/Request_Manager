@@ -20,7 +20,10 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 public class RequestQueue extends AppCompatActivity implements Dialog_RequestDetails.Interface_requestDetails {
 
@@ -35,6 +38,7 @@ public class RequestQueue extends AppCompatActivity implements Dialog_RequestDet
     private EditText searchBar;
 
     private String user;
+    private String username;
     private String priority;
 
     @Override
@@ -42,7 +46,8 @@ public class RequestQueue extends AppCompatActivity implements Dialog_RequestDet
         super.onCreate(savedInstanceState);
         setContentView(R.layout.request_queue_layout);
 
-        user = getIntent().getExtras().get("User").toString();
+        user = getIntent().getStringExtra("User");
+        username = getIntent().getStringExtra("Username");
         reference = FirebaseDatabase.getInstance().getReference().child("Low");
 
         spinner = findViewById(R.id.recycler_prioritySpin);
@@ -100,21 +105,20 @@ public class RequestQueue extends AppCompatActivity implements Dialog_RequestDet
             @Override
             public void OnItemClick(int position) {
                 if (searchList != null)
-                    requestDetails = new Dialog_RequestDetails(searchList.get(position), user);
+                    requestDetails = new Dialog_RequestDetails(searchList.get(position), user, spinner.getSelectedItemPosition());
                 else
-                    requestDetails = new Dialog_RequestDetails(displayQueue.get(position), user);
+                    requestDetails = new Dialog_RequestDetails(displayQueue.get(position), user, spinner.getSelectedItemPosition());
                 requestDetails.show(getSupportFragmentManager(), "Request Details");
             }
         });
 
         activatePriority();
         activateSearchBar();
-        String username = getIntent().getExtras().get("Username").toString();
-        if (!username.isEmpty()) {
+        if (!username.isEmpty() && user.equals("Customer")) {
             searchBar.setText("");
             searchBar.setClickable(false);
             searchBar.setVisibility(View.GONE);
-            filterUsername(username);
+            filterUsername();
         }
     }
 
@@ -195,13 +199,17 @@ public class RequestQueue extends AppCompatActivity implements Dialog_RequestDet
     }
 
     // This works
-    private void filterUsername(String username) {
-        ArrayList<RequestClass> userList = new ArrayList<>();
+    private void filterUsername() {
+        final ArrayList<RequestClass> userList = new ArrayList<>();
+        // Pending Requests
         for (RequestClass request : displayQueue) {
             if (request.getUsername().toLowerCase().contains(username.toLowerCase())) {
                 userList.add(request);
             }
         }
+
+        // Get completed requests
+        // ...
         displayQueue = userList;
         adapter.updateList(displayQueue);
     }
@@ -210,13 +218,15 @@ public class RequestQueue extends AppCompatActivity implements Dialog_RequestDet
     // This works
     public void deleteRequest(String requestID) {
         // Remove request from list
+        reference = FirebaseDatabase.getInstance().getReference(priority);
+        reference.child(requestID).removeValue();
         int pos;
         for (pos = 0; pos < displayQueue.size(); pos++) {
             if (displayQueue.get(pos).getRequest_id().equals(requestID)) {
                 break;
             }
         }
-        reference.child(requestID).removeValue();
+        completeMessage(displayQueue.get(pos), "dismissed");
         displayQueue.remove(pos);
         requestDetails.dismiss();
         adapter.notifyItemRemoved(pos);
@@ -226,21 +236,58 @@ public class RequestQueue extends AppCompatActivity implements Dialog_RequestDet
     // This works
     public void completeRequest(String requestID) {
         // Remove request from list
+        reference = FirebaseDatabase.getInstance().getReference(priority);
+        reference.child(requestID).removeValue();
         int pos;
         for (pos = 0; pos < displayQueue.size(); pos++) {
             if (displayQueue.get(pos).getRequest_id().equals(requestID)) {
                 break;
             }
         }
-        reference.child(requestID).removeValue();
+        completeMessage(displayQueue.get(pos), "completed");
         displayQueue.remove(pos);
         requestDetails.dismiss();
         adapter.notifyItemRemoved(pos);
     }
 
     @Override
+    public void changePriority(String requestID, String targetPriority) {
+        int pos;
+        for (pos = 0; pos < displayQueue.size(); pos++) {
+            if (displayQueue.get(pos).getRequest_id().equals(requestID)) {
+                break;
+            }
+        }
+        // Remove from database
+        reference = FirebaseDatabase.getInstance().getReference(priority);
+        reference.child(requestID).removeValue();
+
+        // Remove from current display
+        displayQueue.remove(pos);
+        requestDetails.dismiss();
+        adapter.notifyItemRemoved(pos);
+
+        // Add to target priority
+        reference = FirebaseDatabase.getInstance().getReference(targetPriority);
+        reference.child(requestID).setValue(displayQueue.get(pos));
+    }
+
+    @Override
     // This works
     public void closeDialog() {
         requestDetails.dismiss();
+    }
+
+    private void completeMessage(RequestClass request, String status) {
+        reference = FirebaseDatabase.getInstance().getReference("Completed Requests");
+        Date date = new Date();
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy", Locale.ENGLISH);
+        String message = String.format("Request %s by admin: %s on %s", status, username, formatter.format(date));
+
+        // Create storage data structure
+        CompletedRequest comRequest = new CompletedRequest(request.getUsername(), request.getEmail(), request.getPhone(),
+                request.getRequest_id(), request.getRequest_subject(), request.getRequest_details(), priority, message);
+
+        reference.push().setValue(comRequest);
     }
 }

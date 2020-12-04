@@ -6,7 +6,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,11 +19,16 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
 
     private final RequestClass request;
     private final String user;
+
+    private final int priorityVal;
+
+    private String message;
     private Interface_requestDetails requestDetails;
 
-    public Dialog_RequestDetails(RequestClass request, String user) {
+    public Dialog_RequestDetails(RequestClass request, String user, int priorityVal) {
         this.request = request;
         this.user = user;
+        this.priorityVal = priorityVal;
     }
 
     @NonNull
@@ -41,7 +48,9 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
         reqDetails.setText(String.format("Details: %s", request.getRequest_details()));
 
         if (user.equals("Admin")) {
+            final Spinner priorities = view.findViewById(R.id.spinner_details);
 
+            final Button priority = view.findViewById(R.id.changePriority);
             final Button dismiss = view.findViewById(R.id.popup_dismissButton);
             final Button complete = view.findViewById(R.id.popup_completeButton);
             final Button confirm = view.findViewById(R.id.popup_confirmButton);
@@ -56,16 +65,20 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
             phone.setText(String.format("Phone: %s", request.getPhone()));
             mail.setText(String.format("Mail: %s", request.getEmail()));
 
+            priorities.setSelection(priorityVal);
+
             //Admin functionality
             dismiss.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     dismiss.setText(R.string.confirm_dismissal);
-                    complete.setClickable(false);
+                    complete.setEnabled(false);
+                    priority.setEnabled(false);
                     confirm.setVisibility(View.VISIBLE);
                     confirm.setClickable(true);
                     cancel.setVisibility(View.VISIBLE);
                     cancel.setClickable(true);
+                    message = "Dismiss";
                 }
             });
 
@@ -73,21 +86,47 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
                 @Override
                 public void onClick(View v) {
                     complete.setText(R.string.confirm_completion);
-                    dismiss.setClickable(false);
+                    dismiss.setEnabled(false);
+                    priority.setEnabled(false);
                     confirm.setVisibility(View.VISIBLE);
                     confirm.setClickable(true);
                     cancel.setVisibility(View.VISIBLE);
                     cancel.setClickable(true);
+                    message = "Complete";
+                }
+            });
+
+            priority.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (priorities.getSelectedItemPosition() == priorityVal) {
+                        Toast.makeText(getActivity(), "no change in priority", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
+
+                    complete.setEnabled(false);
+                    dismiss.setEnabled(false);
+                    confirm.setVisibility(View.VISIBLE);
+                    confirm.setClickable(true);
+                    cancel.setVisibility(View.VISIBLE);
+                    cancel.setClickable(true);
+                    message = "Priority";
                 }
             });
 
             confirm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (complete.getText().toString().equals("Confirm Completion")) {
-                        requestDetails.completeRequest(request.getRequest_id());
-                    } else if (dismiss.getText().toString().equals("Confirm Dismissal")) {
-                        requestDetails.deleteRequest(request.getRequest_id());
+                    switch (message) {
+                        case "Complete":
+                            requestDetails.completeRequest(request.getRequest_id());
+                            break;
+                        case "Dismiss":
+                            requestDetails.deleteRequest(request.getRequest_id());
+                            break;
+                        case "Priority":
+                            requestDetails.changePriority(request.getRequest_id(), priorities.getSelectedItem().toString());
+                            break;
                     }
                 }
             });
@@ -120,6 +159,8 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
         void deleteRequest(String requestID);
 
         void completeRequest(String requestID);
+
+        void changePriority(String requestID, String targetPriority);
 
         void closeDialog();
     }

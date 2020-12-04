@@ -9,6 +9,7 @@
         android:roundIcon="@mipmap/icon_app_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Account_Request_Queue"></activity>
         <activity android:name=".LoginUser" />
         <activity android:name=".Account_Profile" />
         <activity android:name=".Dashboard_User" />

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -37,6 +38,8 @@ public class LoginUser extends AppCompatActivity {
 
         username = findViewById(R.id.login_username);
         password = findViewById(R.id.login_password);
+        TextView usage = findViewById(R.id.login_use);
+        usage.setText(String.format("%s Login", use));
 
         getUsers();
     }
