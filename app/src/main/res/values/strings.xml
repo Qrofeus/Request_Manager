@@ -43,6 +43,7 @@
     <string name="confirm_dismissal">Confirm Dismissal</string>
     <string name="complete_request">COMPLETE REQUEST</string>
     <string name="confirm_completion">Confirm Completion</string>
+    <string name="change_priority">Change Priority</string>
 
     <string name="cancel">Cancel</string>
     <string name="confirm">Confirm</string>
