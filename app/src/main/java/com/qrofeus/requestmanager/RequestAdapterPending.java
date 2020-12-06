@@ -10,12 +10,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class RequestAdapter extends RecyclerView.Adapter<RequestAdapter.RequestViewHolder> {
+public class RequestAdapterPending extends RecyclerView.Adapter<RequestAdapterPending.RequestViewHolder> {
 
     private ArrayList<RequestClass> arrayList;
     private OnItemClickListener clickListener;
 
-    public RequestAdapter(ArrayList<RequestClass> arrayList) {
+    public RequestAdapterPending(ArrayList<RequestClass> arrayList) {
         this.arrayList = arrayList;
     }
 

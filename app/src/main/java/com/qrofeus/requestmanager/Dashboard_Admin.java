@@ -49,9 +49,9 @@ public class Dashboard_Admin extends AppCompatActivity implements Dialog_Confirm
     }
 
     public void requestQueue(View view) {
-        startActivity(new Intent(this, RequestQueue.class)
-                .putExtra("User", "Admin")
-                .putExtra("Username", username));
+        startActivity(new Intent(this, Account_Request_Queue.class)
+                .putExtra("use", "Admin")
+                .putExtra("username", username));
     }
 
     @Override

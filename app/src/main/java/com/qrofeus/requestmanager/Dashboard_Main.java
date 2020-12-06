@@ -15,9 +15,7 @@ public class Dashboard_Main extends AppCompatActivity implements Dialog_Mail.Int
     }
 
     public void requestList(View view) {
-        startActivity(new Intent(this, RequestQueue.class)
-                .putExtra("User", "Customer")
-                .putExtra("Username", ""));
+        startActivity(new Intent(this, RequestQueue.class));
 
         //startActivity(new Intent(this, RequestList.class));
     }

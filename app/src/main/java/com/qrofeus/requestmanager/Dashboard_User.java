@@ -33,9 +33,7 @@ public class Dashboard_User extends AppCompatActivity implements Dialog_Confirma
     }
 
     public void displayQueue(View view) {
-        startActivity(new Intent(this, RequestQueue.class)
-                .putExtra("User", "Customer")
-                .putExtra("Username", ""));
+        startActivity(new Intent(this, RequestQueue.class));
     }
 
     public void userProfile(View view) {
@@ -57,9 +55,9 @@ public class Dashboard_User extends AppCompatActivity implements Dialog_Confirma
     }
 
     public void prevRequests(View view) {
-        startActivity(new Intent(this, RequestQueue.class)
-                .putExtra("User", "Customer")
-                .putExtra("Username", username));
+        startActivity(new Intent(this, Account_Request_Queue.class)
+                .putExtra("use", "Customer")
+                .putExtra("username", username));
     }
 
     @Override

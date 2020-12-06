@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#AA00FF"
+    android:background="#4B2087"
     tools:context=".LoginUser">
 
     <androidx.cardview.widget.CardView
@@ -94,7 +94,7 @@
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="10dp"
                 android:onClick="onSubmitClick"
-                app:cardBackgroundColor="#D500F9"
+                app:cardBackgroundColor="#4B2087"
                 app:cardCornerRadius="25dp"
                 app:cardElevation="5dp"
                 app:layout_constraintBottom_toTopOf="@id/button"

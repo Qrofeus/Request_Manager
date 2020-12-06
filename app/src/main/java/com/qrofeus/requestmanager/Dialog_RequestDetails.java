@@ -134,7 +134,7 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
             cancel.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    requestDetails.closeDialog();
+                    dismiss();
                 }
             });
         }
@@ -161,7 +161,5 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
         void completeRequest(String requestID);
 
         void changePriority(String requestID, String targetPriority);
-
-        void closeDialog();
     }
 }

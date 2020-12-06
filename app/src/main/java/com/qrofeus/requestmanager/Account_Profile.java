@@ -12,7 +12,7 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.regex.Pattern;
 
-public class Account_Profile extends AppCompatActivity {
+public class Account_Profile extends AppCompatActivity implements Dialog_Confirmation.Interface_DialogResults {
 
     private String username;
     private String password;
@@ -65,7 +65,7 @@ public class Account_Profile extends AppCompatActivity {
                 phone = newPhone;
 
                 UserAccount account = new UserAccount(dataKey, username, password, mail, phone);
-                FirebaseDatabase.getInstance().getReference().child("Accounts").child(dataKey).setValue(account);
+                FirebaseDatabase.getInstance().getReference("Accounts").child(use).child(dataKey).setValue(account);
 
                 Toast.makeText(this, "User profile updated", Toast.LENGTH_SHORT).show();
             } else {
@@ -83,6 +83,11 @@ public class Account_Profile extends AppCompatActivity {
         return patternMail.matcher(mail).matches() && patternPhone.matcher(phone).matches();
     }
 
+    public void onDelete(View view) {
+        Dialog_Confirmation dialogClass = new Dialog_Confirmation("Confirm account deletion");
+        dialogClass.show(getSupportFragmentManager(), "Confirm Delete");
+    }
+
     @Override
     public void onBackPressed() {
         super.onBackPressed();
@@ -98,6 +103,14 @@ public class Account_Profile extends AppCompatActivity {
                     .putExtra("Password", password)
                     .putExtra("Mail ID", mail)
                     .putExtra("Phone", phone));
+            finish();
         }
+    }
+
+    @Override
+    public void confirmDialog() {
+        FirebaseDatabase.getInstance().getReference("Accounts").child(use).child(dataKey).removeValue();
+        Toast.makeText(this, "Account deleted", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

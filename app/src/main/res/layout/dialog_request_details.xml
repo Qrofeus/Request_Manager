@@ -3,20 +3,18 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:background="#00B8D4">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#A8DADC"
-        android:paddingHorizontal="15dp"
-        android:paddingTop="15dp"
-        android:paddingBottom="20dp">
+        android:padding="15dp">
 
         <TextView
             android:id="@+id/popup_id"
             android:layout_width="match_parent"
-            android:layout_height="35dp"
+            android:layout_height="wrap_content"
             android:ellipsize="end"
             android:gravity="center"
             android:textColor="@android:color/black"
@@ -68,7 +66,6 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#00FFFFFF"
                 android:padding="0dp">
 
                 <Spinner
@@ -147,6 +144,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="20dp"
                     android:layout_marginRight="20dp"
+                    android:layout_marginBottom="5dp"
                     android:background="#64DD17"
                     android:text="@string/cancel"
                     android:textColor="#FFFFFF"
@@ -163,6 +161,7 @@
                     android:layout_marginTop="20dp"
                     android:layout_marginEnd="5dp"
                     android:layout_marginRight="5dp"
+                    android:layout_marginBottom="5dp"
                     android:background="#FF1919"
                     android:text="@string/confirm"
                     android:textColor="#FFFFFF"

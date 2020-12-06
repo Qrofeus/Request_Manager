@@ -19,7 +19,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#E63946"
+                android:background="#DD2C00"
                 android:padding="15dp">
 
                 <TextView
@@ -50,7 +50,7 @@
             android:layout_marginHorizontal="15dp"
             android:background="@color/disabledButton"
             android:gravity="center"
-            android:text="Show Details"
+            android:text="@string/show_details"
             android:textColor="@android:color/black" />
     </RelativeLayout>
 
