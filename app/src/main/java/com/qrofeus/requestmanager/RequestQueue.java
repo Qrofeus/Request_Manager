@@ -64,14 +64,13 @@ public class RequestQueue extends AppCompatActivity implements Dialog_RequestDet
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (!snapshot.exists()) {
+                    emptyCard.setVisibility(View.VISIBLE);
                     Toast.makeText(RequestQueue.this, "No current requests", Toast.LENGTH_SHORT).show();
                 }
                 try {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         RequestClass requestClass = dataSnapshot.getValue(RequestClass.class);
-                        if (requestClass != null) {
-                            requestQueue.add(requestClass);
-                        }
+                        requestQueue.add(requestClass);
                     }
                 } catch (Exception e) {
                     Toast.makeText(RequestQueue.this, "Error occurred: " + e.toString(), Toast.LENGTH_SHORT).show();
@@ -132,36 +131,28 @@ public class RequestQueue extends AppCompatActivity implements Dialog_RequestDet
     }
 
     private void getPriorityList() {
+        emptyCard.setVisibility(View.GONE);
         requestQueue = new ArrayList<>();
         priority = spinner.getSelectedItem().toString();
         reference = FirebaseDatabase.getInstance().getReference(priority);
         reference.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (!snapshot.exists()) {
-                    Toast.makeText(RequestQueue.this, "No current requests", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                RequestClass requestClass;
-                try {
+                if (snapshot.exists()) {
+                    RequestClass requestClass;
                     for (DataSnapshot snap : snapshot.getChildren()) {
                         requestClass = snap.getValue(RequestClass.class);
                         requestQueue.add(requestClass);
                     }
-                } catch (Exception e) {
-                    Toast.makeText(RequestQueue.this, "Error occurred: " + e.toString(), Toast.LENGTH_SHORT).show();
-                }
-                if (requestQueue.isEmpty())
+                    displayQueue = requestQueue;
+                    searchBar.setText("");
+                    adapter.updateList(displayQueue);
+                } else
                     emptyCard.setVisibility(View.VISIBLE);
-                else
-                    emptyCard.setVisibility(View.GONE);
-                displayQueue = requestQueue;
-                adapter.updateList(displayQueue);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-                Toast.makeText(RequestQueue.this, "Database Error: " + error, Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -187,6 +178,7 @@ public class RequestQueue extends AppCompatActivity implements Dialog_RequestDet
 
     // This works
     private void searchQuery(String text) {
+        emptyCard.setVisibility(View.GONE);
         searchList = new ArrayList<>();
         for (RequestClass request : displayQueue) {
             if (request.getRequest_id().toLowerCase().contains(text.toLowerCase())) {
@@ -195,14 +187,12 @@ public class RequestQueue extends AppCompatActivity implements Dialog_RequestDet
         }
         if (searchList.isEmpty())
             emptyCard.setVisibility(View.VISIBLE);
-        else
-            emptyCard.setVisibility(View.GONE);
         adapter.updateList(searchList);
     }
 
     @Override
     // This works
-    public void deleteRequest(String requestID) {
+    public void dismissRequest(String requestID) {
     }
 
     @Override

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -20,6 +21,7 @@ public class RegisterRequest extends AppCompatActivity {
     private String subject_text;
     private String email_address;
     private String phone_number;
+    private String unique_id;
 
     private DatabaseReference reference;
 
@@ -42,7 +44,12 @@ public class RegisterRequest extends AppCompatActivity {
         details = findViewById(R.id.request_details);
         priority = findViewById(R.id.priority_dropdown);
 
-        if (!getIntent().getExtras().get("User").toString().isEmpty()) {
+        unique_id = hexCode();
+
+        TextView request_id = findViewById(R.id.register_id);
+        request_id.setText(String.format("Request ID: %s", unique_id.toUpperCase()));
+
+        if (!getIntent().getStringExtra("User").isEmpty()) {
             username.setText(getIntent().getExtras().get("User").toString());
             mail_id.setText(getIntent().getExtras().get("Mail").toString());
             phone.setText(getIntent().getExtras().get("Phone").toString());
@@ -69,12 +76,11 @@ public class RegisterRequest extends AppCompatActivity {
         changeReference();
 
         // Generate Random Request ID
-        String reqID = hexCode();
         String details_text = details.getText().toString();
 
         // Create data structure for storage
-        RequestClass newRequest = new RequestClass(reqID, username_text, subject_text, details_text, email_address, phone_number);
-        reference.child(reqID).setValue(newRequest);
+        RequestClass newRequest = new RequestClass(unique_id, username_text, subject_text, details_text, email_address, phone_number);
+        reference.child(unique_id).setValue(newRequest);
 
         Toast.makeText(this, "Request Registered", Toast.LENGTH_SHORT).show();
         finish();

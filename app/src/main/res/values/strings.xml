@@ -53,10 +53,12 @@
     <!--User Profile-->
     <string name="email_address">Email Address</string>
     <string name="update_profile">Update Profile</string>
+    <string name="delete_profile">Delete Profile</string>
 
     <!--Register Account-->
     <string name="register_account">Register Account</string>
     <string name="register_user">Register User</string>
+    <string name="contact_details_account">Contact Details</string>
 
     <!--Request Queue Display-->
     <string name="displaying_for_priority">Displaying for priority</string>
@@ -71,8 +73,8 @@
 
     <!--Arrays-->
     <string-array name="priorities">
-        <item>Low</item>
-        <item>Medium</item>
         <item>High</item>
+        <item>Medium</item>
+        <item>Low</item>
     </string-array>
 </resources>

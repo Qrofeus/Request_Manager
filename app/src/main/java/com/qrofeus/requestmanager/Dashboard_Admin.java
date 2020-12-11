@@ -33,7 +33,7 @@ public class Dashboard_Admin extends AppCompatActivity implements Dialog_Confirm
     }
 
     public void registerAdmin(View view) {
-        startActivity(new Intent(this, Register_Activity.class)
+        startActivity(new Intent(this, RegisterAccount.class)
                 .putExtra("use", "Admin"));
     }
 

@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -39,7 +40,7 @@ public class Account_Request_Queue extends AppCompatActivity implements Dialog_R
     private ArrayList<CompletedRequest> completeDisplay;
     private ArrayList<CompletedRequest> searchComplete = null;
 
-    private RequestAdapterPending adapterPending;
+    private RequestAdapterPending adapterPending = null;
     private RequestAdapterComplete adapterComplete;
 
     private RecyclerView recycler;
@@ -107,22 +108,27 @@ public class Account_Request_Queue extends AppCompatActivity implements Dialog_R
                 if (snapshot.exists()) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         RequestClass request = dataSnapshot.getValue(RequestClass.class);
-                        if (use.equals("Customer"))
+                        if (use.equals("Customer") && request != null)
                             if (!request.getUsername().equals(username))
                                 continue;
                         pendingDisplay.add(request);
                     }
-                    if (pendingDisplay.isEmpty())
-                        emptyCard.setVisibility(View.VISIBLE);
+                    if (adapterPending == null)
+                        addAdapterPending();
                     else
+                        adapterPending.updateList(pendingDisplay);
+                    searchBar.setText("");
+                    if (!pendingDisplay.isEmpty())
                         emptyCard.setVisibility(View.GONE);
-                    addAdapterPending();
-                }
+                    else
+                        emptyCard.setVisibility(View.VISIBLE);
+                } else
+                    emptyCard.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
+                Toast.makeText(Account_Request_Queue.this, "Database Error: " + error.toString(), Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -151,44 +157,11 @@ public class Account_Request_Queue extends AppCompatActivity implements Dialog_R
         spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                getPriorityList();
+                getPendingRequests();
             }
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-    }
-
-    // WIll only be used in case of pending requests
-    private void getPriorityList() {
-        searchBar.setText("");
-        pendingDisplay = new ArrayList<>();
-        priority = spinner.getSelectedItem().toString();
-        reference = FirebaseDatabase.getInstance().getReference(priority);
-
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                if (snapshot.exists()) {
-                    for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
-                        RequestClass request = dataSnapshot.getValue(RequestClass.class);
-                        if (use.equals("Customer"))
-                            if (!request.getUsername().equals(username))
-                                continue;
-                        pendingDisplay.add(request);
-                    }
-                    if (pendingDisplay.isEmpty())
-                        emptyCard.setVisibility(View.VISIBLE);
-                    else
-                        emptyCard.setVisibility(View.GONE);
-                    adapterPending.updateList(pendingDisplay);
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
 
             }
         });
@@ -214,17 +187,18 @@ public class Account_Request_Queue extends AppCompatActivity implements Dialog_R
                 if (snapshot.exists()) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         CompletedRequest request = dataSnapshot.getValue(CompletedRequest.class);
-                        if (use.equals("Customer"))
+                        if (use.equals("Customer") && request != null)
                             if (!request.getUsername().equals(username))
                                 continue;
                         completeDisplay.add(request);
                     }
-                    if (completeDisplay.isEmpty())
-                        emptyCard.setVisibility(View.VISIBLE);
-                    else
+                    if (!completeDisplay.isEmpty())
                         emptyCard.setVisibility(View.GONE);
+                    else
+                        emptyCard.setVisibility(View.VISIBLE);
                     addAdapterComplete();
-                }
+                } else
+                    emptyCard.setVisibility(View.VISIBLE);
             }
 
             @Override
@@ -274,6 +248,7 @@ public class Account_Request_Queue extends AppCompatActivity implements Dialog_R
     }
 
     private void searchQuery(String text) {
+        emptyCard.setVisibility(View.GONE);
         if (currentUse.equals("Completed")) {
             // Search in completed requests
             searchComplete = new ArrayList<>();
@@ -284,8 +259,6 @@ public class Account_Request_Queue extends AppCompatActivity implements Dialog_R
             }
             if (searchComplete.isEmpty())
                 emptyCard.setVisibility(View.VISIBLE);
-            else
-                emptyCard.setVisibility(View.GONE);
             adapterComplete.updateList(searchComplete);
         } else if (currentUse.equals("Pending")) {
             // Search in pending requests
@@ -297,27 +270,27 @@ public class Account_Request_Queue extends AppCompatActivity implements Dialog_R
             }
             if (searchPending.isEmpty())
                 emptyCard.setVisibility(View.VISIBLE);
-            else
-                emptyCard.setVisibility(View.GONE);
             adapterPending.updateList(searchPending);
         }
     }
 
     // on Button Clicks
     public void onCLickPending(View view) {
+        adapterComplete = null;
         currentUse = "Pending";
         pendingView();
     }
 
     public void onClickComplete(View view) {
+        adapterPending = null;
         currentUse = "Completed";
         completedView();
     }
 
     // Will only be used in case of pending requests by admin
     @Override
-    public void deleteRequest(String requestID) {
-        // Remove request from list
+    public void dismissRequest(String requestID) {
+        // Remove request from database
         reference = FirebaseDatabase.getInstance().getReference(priority);
         reference.child(requestID).removeValue();
         int pos;
@@ -327,9 +300,11 @@ public class Account_Request_Queue extends AppCompatActivity implements Dialog_R
             }
         }
         completeMessage(pendingDisplay.get(pos), "dismissed");
-        pendingDisplay.remove(pos);
+
+        // Remove request from current display
         requestDetails.dismiss();
-        adapterPending.notifyItemRemoved(pos);
+        pendingDisplay.remove(pos);
+        adapterPending.updateList(pendingDisplay);
     }
 
     @Override
@@ -344,9 +319,9 @@ public class Account_Request_Queue extends AppCompatActivity implements Dialog_R
             }
         }
         completeMessage(pendingDisplay.get(pos), "completed");
-        pendingDisplay.remove(pos);
         requestDetails.dismiss();
-        adapterPending.notifyItemRemoved(pos);
+        pendingDisplay.remove(pos);
+        adapterPending.updateList(pendingDisplay);
     }
 
     @Override
@@ -357,18 +332,18 @@ public class Account_Request_Queue extends AppCompatActivity implements Dialog_R
                 break;
             }
         }
-        // Remove from current priority
-        reference = FirebaseDatabase.getInstance().getReference(priority);
-        reference.child(requestID).removeValue();
-
         // Add to target priority
         reference = FirebaseDatabase.getInstance().getReference(targetPriority);
         reference.child(requestID).setValue(pendingDisplay.get(pos));
 
+        // Remove from current priority
+        reference = FirebaseDatabase.getInstance().getReference(priority);
+        reference.child(requestID).removeValue();
+
         // Remove from current display
-        pendingDisplay.remove(pos);
         requestDetails.dismiss();
-        adapterPending.notifyItemRemoved(pos);
+        pendingDisplay.remove(pos);
+        adapterPending.updateList(pendingDisplay);
     }
 
     private void completeMessage(RequestClass request, String status) {

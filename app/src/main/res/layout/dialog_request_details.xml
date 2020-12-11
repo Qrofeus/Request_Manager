@@ -48,8 +48,6 @@
             android:layout_height="wrap_content"
             android:layout_below="@id/popup_username"
             android:layout_marginTop="15dp"
-            android:lines="3"
-            android:maxLines="10"
             android:textColor="@android:color/black"
             android:textSize="20sp" />
 

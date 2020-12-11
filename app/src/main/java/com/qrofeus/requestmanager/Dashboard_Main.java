@@ -37,7 +37,7 @@ public class Dashboard_Main extends AppCompatActivity implements Dialog_Mail.Int
     }
 
     public void registerUser(View view) {
-        startActivity(new Intent(this, Register_Activity.class)
+        startActivity(new Intent(this, RegisterAccount.class)
                 .putExtra("use", "Customer"));
     }
 

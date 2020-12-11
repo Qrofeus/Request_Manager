@@ -3,6 +3,7 @@ package com.qrofeus.requestmanager;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -15,9 +16,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.Query;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Base64;
 import java.util.regex.Pattern;
 
-public class Register_Activity extends AppCompatActivity {
+public class RegisterAccount extends AppCompatActivity {
 
     private String use;
     private String text_username;
@@ -39,13 +41,15 @@ public class Register_Activity extends AppCompatActivity {
 
         use = getIntent().getExtras().get("use").toString();
 
+        TextView accountUse = findViewById(R.id.account_use);
+        accountUse.setText(String.format("Register %s Account", use));
+
         username = findViewById(R.id.register_username);
         password = findViewById(R.id.register_pass);
         phone = findViewById(R.id.register_phone);
         mail = findViewById(R.id.register_mail);
     }
 
-    // This works
     public void onRegisterClick(View view) {
 
         text_username = username.getText().toString().trim();
@@ -60,7 +64,6 @@ public class Register_Activity extends AppCompatActivity {
         checkDuplicate();
     }
 
-    // This Works
     private void checkDuplicate() {
         reference = FirebaseDatabase.getInstance().getReference("Accounts").child(use);
         Query checkUsername = reference.orderByChild("username").equalTo(text_username);
@@ -68,7 +71,7 @@ public class Register_Activity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 if (snapshot.exists()) {
-                    Toast.makeText(Register_Activity.this, "Enter unique username", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RegisterAccount.this, "Enter unique username", Toast.LENGTH_SHORT).show();
                     username.requestFocus();
                 } else
                     createUser();
@@ -81,11 +84,11 @@ public class Register_Activity extends AppCompatActivity {
         });
     }
 
-    // This works
     private void createUser() {
         if (verifyInput(text_mail, text_phone)) {
             String user_key = reference.push().getKey();
-            UserAccount account = new UserAccount(user_key, text_username, text_password, text_mail, text_phone);
+            String encryptPassword = caesarCipherEncrypt(text_password);
+            UserAccount account = new UserAccount(user_key, text_username, encryptPassword, text_mail, text_phone);
             assert user_key != null;
             reference.child(user_key).setValue(account);
             Toast.makeText(this, "Account Created", Toast.LENGTH_SHORT).show();
@@ -95,12 +98,33 @@ public class Register_Activity extends AppCompatActivity {
         }
     }
 
-    // This works
     private boolean verifyInput(String mail, String phone) {
         Pattern patternMail = Pattern.compile("[a-z0-9._%+-]+@[a-z0-9.-]+\\.[a-z]{2,4}$");
         Pattern patternPhone = Pattern.compile("[789][0-9]{9}");
 
         return patternMail.matcher(mail).matches() && patternPhone.matcher(phone).matches();
+    }
+
+    public String caesarCipherEncrypt(String plain) {
+        String b64encoded = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            b64encoded = Base64.getEncoder().encodeToString(plain.getBytes());
+        }
+
+        // Reverse the string
+        String reverse = null;
+        if (b64encoded != null) {
+            reverse = new StringBuffer(b64encoded).reverse().toString();
+        }
+
+        StringBuilder tmp = new StringBuilder();
+        final int OFFSET = 4;
+        if (reverse != null) {
+            for (int i = 0; i < reverse.length(); i++) {
+                tmp.append((char) (reverse.charAt(i) + OFFSET));
+            }
+        }
+        return tmp.toString();
     }
 
 }

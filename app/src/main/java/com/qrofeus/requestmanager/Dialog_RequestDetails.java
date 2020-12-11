@@ -45,7 +45,7 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
         reqID.setText(String.format("RID: %s", request.getRequest_id().toUpperCase()));
         reqUsername.setText(String.format("Username: %s", request.getUsername()));
         reqSubject.setText(String.format("Subject: %s", request.getRequest_subject()));
-        reqDetails.setText(String.format("Details: %s", request.getRequest_details()));
+        reqDetails.setText(String.format("Details:\n%s", request.getRequest_details()));
 
         if (user.equals("Admin")) {
             final Spinner priorities = view.findViewById(R.id.spinner_details);
@@ -122,7 +122,7 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
                             requestDetails.completeRequest(request.getRequest_id());
                             break;
                         case "Dismiss":
-                            requestDetails.deleteRequest(request.getRequest_id());
+                            requestDetails.dismissRequest(request.getRequest_id());
                             break;
                         case "Priority":
                             requestDetails.changePriority(request.getRequest_id(), priorities.getSelectedItem().toString());
@@ -147,7 +147,6 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-
         try {
             requestDetails = (Interface_requestDetails) context;
         } catch (ClassCastException e) {
@@ -156,7 +155,7 @@ public class Dialog_RequestDetails extends AppCompatDialogFragment {
     }
 
     public interface Interface_requestDetails {
-        void deleteRequest(String requestID);
+        void dismissRequest(String requestID);
 
         void completeRequest(String requestID);
 

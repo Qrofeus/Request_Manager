@@ -63,6 +63,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:visibility="gone"
+        app:cardElevation="0dp"
         app:layout_constraintBottom_toTopOf="@id/button_completed"
         app:layout_constraintTop_toBottomOf="@id/account_spinner">
 

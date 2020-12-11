@@ -32,14 +32,14 @@ public class Dialog_CompleteRequest extends AppCompatDialogFragment {
         final TextView details = view.findViewById(R.id.complete_details);
         final TextView message = view.findViewById(R.id.complete_message);
 
-        id.setText(String.format("RID: %s", request.getReq_id()));
+        id.setText(String.format("RID: %s", request.getReq_id().toUpperCase()));
         username.setText(String.format("Username: %s", request.getUsername()));
         email.setText(String.format("Email: %s", request.getEmail()));
         phoneNo.setText(String.format("Phone: %s", request.getPhoneNo()));
         priority.setText(String.format("Priority: %s", request.getPriority()));
         subject.setText(String.format("Subject: %s", request.getReq_subject()));
-        details.setText(String.format("Details: %s", request.getReq_details()));
-        message.setText(String.format("Status: %s", request.getMessage()));
+        details.setText(String.format("Details:\n%s", request.getReq_details()));
+        message.setText(String.format("Status:\n%s", request.getMessage()));
 
         builder.setView(view);
         return builder.create();

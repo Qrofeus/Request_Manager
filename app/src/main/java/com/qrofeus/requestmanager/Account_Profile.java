@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.util.Base64;
 import java.util.regex.Pattern;
 
 public class Account_Profile extends AppCompatActivity implements Dialog_Confirmation.Interface_DialogResults {
@@ -64,7 +65,7 @@ public class Account_Profile extends AppCompatActivity implements Dialog_Confirm
                 mail = newMail;
                 phone = newPhone;
 
-                UserAccount account = new UserAccount(dataKey, username, password, mail, phone);
+                UserAccount account = new UserAccount(dataKey, username, caesarCipherEncrypt(password), mail, phone);
                 FirebaseDatabase.getInstance().getReference("Accounts").child(use).child(dataKey).setValue(account);
 
                 Toast.makeText(this, "User profile updated", Toast.LENGTH_SHORT).show();
@@ -94,7 +95,10 @@ public class Account_Profile extends AppCompatActivity implements Dialog_Confirm
         if (use.equals("Admin")) {
             startActivity(new Intent(this, Dashboard_Admin.class)
                     .putExtra("Username", username)
-                    .putExtra("Database Key", dataKey));
+                    .putExtra("Database Key", dataKey)
+                    .putExtra("Password", password)
+                    .putExtra("Mail ID", mail)
+                    .putExtra("Phone", phone));
             finish();
         } else if (use.equals("Customer")) {
             startActivity(new Intent(this, Dashboard_User.class)
@@ -111,6 +115,29 @@ public class Account_Profile extends AppCompatActivity implements Dialog_Confirm
     public void confirmDialog() {
         FirebaseDatabase.getInstance().getReference("Accounts").child(use).child(dataKey).removeValue();
         Toast.makeText(this, "Account deleted", Toast.LENGTH_SHORT).show();
+        startActivity(new Intent(this, Dashboard_Main.class));
         finish();
+    }
+
+    public String caesarCipherEncrypt(String plain) {
+        String b64encoded = null;
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            b64encoded = Base64.getEncoder().encodeToString(plain.getBytes());
+        }
+
+        // Reverse the string
+        String reverse = null;
+        if (b64encoded != null) {
+            reverse = new StringBuffer(b64encoded).reverse().toString();
+        }
+
+        StringBuilder tmp = new StringBuilder();
+        final int OFFSET = 4;
+        if (reverse != null) {
+            for (int i = 0; i < reverse.length(); i++) {
+                tmp.append((char) (reverse.charAt(i) + OFFSET));
+            }
+        }
+        return tmp.toString();
     }
 }

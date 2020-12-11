@@ -13,7 +13,7 @@
         <activity android:name=".LoginUser" />
         <activity android:name=".Account_Profile" />
         <activity android:name=".Dashboard_User" />
-        <activity android:name=".Register_Activity" />
+        <activity android:name=".RegisterAccount" />
         <activity android:name=".RequestQueue" />
         <activity android:name=".Dashboard_Admin" />
         <activity android:name=".RegisterRequest" />

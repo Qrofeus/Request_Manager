@@ -37,4 +37,8 @@ public class UserAccount {
     public String getPhone_number() {
         return phone_number;
     }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

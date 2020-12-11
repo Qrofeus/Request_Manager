@@ -1,5 +1,6 @@
 package com.qrofeus.requestmanager;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Base64;
 
 public class LoginUser extends AppCompatActivity {
 
@@ -53,7 +55,11 @@ public class LoginUser extends AppCompatActivity {
                 try {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         UserAccount account = dataSnapshot.getValue(UserAccount.class);
-                        userAccounts.add(account);
+                        if (account != null) {
+                            String password = account.getPassword();
+                            account.setPassword(caesarCipherDecrypt(password));
+                            userAccounts.add(account);
+                        }
                     }
                 } catch (Exception e) {
                     Toast.makeText(LoginUser.this, "Error occurred: " + e.toString(), Toast.LENGTH_LONG).show();
@@ -125,7 +131,7 @@ public class LoginUser extends AppCompatActivity {
     }
 
     public void onRegisterUser(View view) {
-        startActivity(new Intent(this, Register_Activity.class)
+        startActivity(new Intent(this, RegisterAccount.class)
                 .putExtra("use", "Customer"));
     }
 
@@ -134,5 +140,17 @@ public class LoginUser extends AppCompatActivity {
         super.onBackPressed();
         startActivity(new Intent(this, Dashboard_Main.class));
         finish();
+    }
+
+    @SuppressLint("NewApi")
+    public String caesarCipherDecrypt(String secret) {
+        StringBuilder tmp = new StringBuilder();
+        final int OFFSET = 4;
+        for (int i = 0; i < secret.length(); i++) {
+            tmp.append((char) (secret.charAt(i) - OFFSET));
+        }
+
+        String reversed = new StringBuffer(tmp.toString()).reverse().toString();
+        return new String(Base64.getDecoder().decode(reversed));
     }
 }
