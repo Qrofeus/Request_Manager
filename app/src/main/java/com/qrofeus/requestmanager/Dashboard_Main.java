@@ -1,6 +1,7 @@
 package com.qrofeus.requestmanager;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -50,11 +51,9 @@ public class Dashboard_Main extends AppCompatActivity implements Dialog_Mail.Int
     @Override
     public void sendMail(String mailSubject, String mailDetails) {
         // Send Mail to admin
-        final Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setType("message/rfc822");
-        emailIntent.putExtra(android.content.Intent.EXTRA_EMAIL, new String[]{"pday3683@gmail.com"});
-        emailIntent.putExtra(android.content.Intent.EXTRA_SUBJECT, mailSubject);
-        emailIntent.putExtra(android.content.Intent.EXTRA_TEXT, mailDetails);
-        startActivity(Intent.createChooser(emailIntent, "Complete action using..."));
+
+        Uri data = Uri.parse("mailto:pday3683@gmail.com?subject=" + mailSubject + "&body=" + mailDetails);
+        Intent intent = new Intent(Intent.ACTION_VIEW, data);
+        startActivity(intent);
     }
 }

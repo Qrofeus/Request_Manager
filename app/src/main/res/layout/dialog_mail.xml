@@ -3,7 +3,7 @@
     android:layout_width="350dp"
     android:layout_height="wrap_content"
     android:layout_gravity="center"
-    android:background="#A8DADC"
+    android:background="#00C8C8"
     android:padding="20dp">
 
     <TextView
@@ -70,7 +70,7 @@
         android:layout_marginTop="15dp"
         android:layout_marginEnd="0dp"
         android:layout_marginRight="0dp"
-        android:background="#1D3557"
+        android:background="#003BAE"
         android:text="@string/send"
         android:textColor="@android:color/white"
         android:textSize="24sp" />

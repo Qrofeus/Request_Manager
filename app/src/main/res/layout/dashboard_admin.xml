@@ -10,7 +10,7 @@
         android:id="@+id/titleCard"
         android:layout_width="0dp"
         android:layout_height="300dp"
-        app:cardBackgroundColor="#304FFE"
+        app:cardBackgroundColor="#4B256D"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -94,7 +94,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="130dp"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginTop="15dp"
+                                android:layout_marginTop="40dp"
                                 android:contentDescription="@string/iconBackground"
                                 android:src="@drawable/dashboard_list" />
 
@@ -133,7 +133,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="130dp"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginTop="15dp"
+                                android:layout_marginTop="40dp"
                                 android:contentDescription="@string/iconBackground"
                                 android:src="@drawable/icon_add_admin" />
 
@@ -191,7 +191,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="130dp"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginTop="15dp"
+                                android:layout_marginTop="40dp"
                                 android:contentDescription="@string/iconBackground"
                                 android:src="@drawable/admin_dashboard_profile" />
 
@@ -230,7 +230,7 @@
                                 android:layout_width="130dp"
                                 android:layout_height="130dp"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginTop="15dp"
+                                android:layout_marginTop="40dp"
                                 android:contentDescription="@string/iconBackground"
                                 android:src="@drawable/admin_dashboard_logout" />
 

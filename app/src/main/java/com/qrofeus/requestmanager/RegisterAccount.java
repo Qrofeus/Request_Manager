@@ -42,7 +42,7 @@ public class RegisterAccount extends AppCompatActivity {
         use = getIntent().getExtras().get("use").toString();
 
         TextView accountUse = findViewById(R.id.account_use);
-        accountUse.setText(String.format("Register %s Account", use));
+        accountUse.setText(use);
 
         username = findViewById(R.id.register_username);
         password = findViewById(R.id.register_pass);
